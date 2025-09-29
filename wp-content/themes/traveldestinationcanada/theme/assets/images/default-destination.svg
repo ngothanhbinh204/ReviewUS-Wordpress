@@ -1,0 +1,9 @@
+<svg width="400" height="225" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="225" fill="#f3f4f6"/>
+  <g fill="#9ca3af" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">
+    <text x="200" y="105">Destination Image</text>
+    <text x="200" y="125">Coming Soon</text>
+  </g>
+  <circle cx="200" cy="85" r="15" fill="#d1d5db"/>
+  <path d="M190 80 L210 80 L205 90 Z" fill="#9ca3af"/>
+</svg>

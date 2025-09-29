@@ -1,0 +1,332 @@
+/* Header Mega Menu Styles with Click Events and Tabs */
+
+/* Mega Menu Container */
+.mega-menu {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%);
+    animation: megaMenuSlideDown 0.3s ease-out;
+}
+
+.mega-menu.hidden {
+    animation: megaMenuSlideUp 0.2s ease-in;
+}
+
+@keyframes megaMenuSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes megaMenuSlideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Menu Button States */
+.mega-menu-btn {
+    transition: all 0.2s ease;
+}
+
+.mega-menu-btn[aria-expanded="true"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fecaca; /* light red */
+}
+
+.mega-menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Arrow Animation */
+.mega-menu-arrow {
+    transition: transform 0.2s ease;
+}
+
+.mega-menu-arrow.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Tab Navigation */
+.tab-btn {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: #374151 !important; /* gray-700 */
+    border-color: #d1d5db !important; /* gray-300 */
+}
+
+.tab-btn.active,
+.tab-btn[data-active="true"] {
+    color: #dc2626 !important; /* red-600 / primary */
+    border-color: #dc2626 !important; /* red-600 / primary */
+}
+
+/* Tab Content */
+.tab-content {
+    min-height: 300px;
+}
+
+.tab-panel {
+    animation: tabFadeIn 0.3s ease-out;
+}
+
+.tab-panel.hidden {
+    display: none !important;
+}
+
+@keyframes tabFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Menu Card Hover Effects */
+.menu-card {
+    transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.menu-card img {
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Line clamp utility for descriptions */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Animations */
+.mobile-submenu {
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    overflow: hidden;
+}
+
+.mobile-submenu.hidden {
+    max-height: 0 !important;
+    opacity: 0;
+}
+
+.mobile-submenu:not(.hidden) {
+    opacity: 1;
+}
+
+/* Mobile Submenu Levels */
+.mobile-submenu-level-1 {
+    background-color: rgba(220, 38, 38, 0.1); /* red with opacity */
+}
+
+.mobile-submenu-level-2 {
+    background-color: rgba(220, 38, 38, 0.2); /* darker red with opacity */
+}
+
+/* Header Hide/Show Animation */
+#main-header {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Search Overlay Animation */
+#searchOverlay {
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+#searchOverlay.hidden {
+    animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Mega Menu Grid Responsive */
+@media (max-width: 768px) {
+    .mega-menu .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .tab-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mega-menu .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tab-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Menu Item Active States */
+.menu-item.current-menu-item > div > button,
+.menu-item.current-menu-ancestor > div > button {
+    color: #fecaca; /* light red */
+}
+
+/* Mega Menu Shadow and Border */
+.mega-menu {
+    border-top: 4px solid #dc2626; /* red-600 */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile Menu Item Borders */
+.mobile-menu .menu-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu .menu-item:last-child {
+    border-bottom: none;
+}
+
+/* Loading State for Menu Images */
+.menu-card img {
+    background-color: #f3f4f6; /* gray-100 */
+}
+
+.menu-card img[src=""] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'/%3E%3C/svg%3E");
+    background-size: 48px 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Focus States for Accessibility */
+.mega-menu-btn:focus,
+.tab-btn:focus,
+.mobile-menu a:focus,
+.mobile-submenu-toggle:focus,
+#searchBtn:focus,
+#mobileMenuBtn:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Smooth Menu Card Grid */
+.mega-menu .grid > * {
+    min-height: 280px;
+}
+
+.menu-card .aspect-w-16 {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.menu-card .aspect-w-16 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tab Data Elements (Hidden) */
+.tab-data {
+    display: none !important;
+}
+
+/* Overlay Background when Menu is Open */
+.mega-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mega-menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Ensure proper stacking */
+.mega-menu {
+    z-index: 50;
+}
+
+#main-header {
+    z-index: 60;
+}
+
+/* Mobile Menu Toggle Arrow Animation */
+.mobile-submenu-toggle svg {
+    transition: transform 0.2s ease;
+}
+
+.mobile-submenu-toggle svg.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Custom Scrollbar for Tab Navigation */
+.tab-content::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+}
+
+.tab-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}

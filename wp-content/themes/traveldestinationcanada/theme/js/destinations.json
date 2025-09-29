@@ -1,0 +1,157 @@
+[
+  {
+    "key": "group_destination",
+    "title": "Destination Fields",
+    "fields": [
+      {
+        "key": "field_banner_image",
+        "label": "Banner Image",
+        "name": "banner_image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_short_description",
+        "label": "Short Description",
+        "name": "short_description",
+        "type": "textarea",
+        "new_lines": "br",
+        "rows": 3
+      },
+      {
+        "key": "field_content_sections",
+        "label": "Content Sections",
+        "name": "content_sections",
+        "type": "flexible_content",
+        "layouts": {
+          "layout_text": {
+            "key": "layout_text",
+            "name": "text_block",
+            "label": "Text Block",
+            "display": "block",
+            "sub_fields": [
+              {
+                "key": "field_text_content",
+                "label": "Content",
+                "name": "content",
+                "type": "wysiwyg"
+              }
+            ]
+          },
+          "layout_image": {
+            "key": "layout_image",
+            "name": "image_block",
+            "label": "Image Block",
+            "display": "block",
+            "sub_fields": [
+              {
+                "key": "field_image_file",
+                "label": "Image",
+                "name": "image",
+                "type": "image",
+                "return_format": "array"
+              },
+              {
+                "key": "field_image_caption",
+                "label": "Caption",
+                "name": "caption",
+                "type": "text"
+              }
+            ]
+          },
+          "layout_gallery": {
+            "key": "layout_gallery",
+            "name": "gallery_block",
+            "label": "Gallery",
+            "display": "block",
+            "sub_fields": [
+              {
+                "key": "field_gallery_images",
+                "label": "Gallery Images",
+                "name": "gallery_images",
+                "type": "gallery",
+                "return_format": "array"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "field_map_location",
+        "label": "Map Location",
+        "name": "map_location",
+        "type": "google_map"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "destination"
+        }
+      ]
+    ]
+  },
+  {
+    "key": "group_thing_to_do",
+    "title": "Things To Do Fields",
+    "fields": [
+      {
+        "key": "field_thumbnail_image",
+        "label": "Thumbnail Image",
+        "name": "thumbnail_image",
+        "type": "image",
+        "return_format": "array"
+      },
+      {
+        "key": "field_intro_text",
+        "label": "Intro Text",
+        "name": "intro_text",
+        "type": "textarea",
+        "rows": 3,
+        "new_lines": "br"
+      },
+      {
+        "key": "field_price_range",
+        "label": "Price Range",
+        "name": "price_range",
+        "type": "text"
+      },
+      {
+        "key": "field_duration",
+        "label": "Duration",
+        "name": "duration",
+        "type": "text"
+      },
+      {
+        "key": "field_best_time",
+        "label": "Best Time To Do",
+        "name": "best_time",
+        "type": "text"
+      },
+      {
+        "key": "field_related_destination",
+        "label": "Related Destination",
+        "name": "related_destination",
+        "type": "post_object",
+        "post_type": [
+          "destination"
+        ],
+        "return_format": "object",
+        "multiple": 0
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "thing_to_do"
+        }
+      ]
+    ]
+  }
+]

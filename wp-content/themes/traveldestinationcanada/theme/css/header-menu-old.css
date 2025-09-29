@@ -1,0 +1,155 @@
+/* Header Mega Menu Styles */
+
+/* Mega Menu Container */
+.mega-menu {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%);
+}
+
+/* Menu Card Hover Effects */
+.menu-card {
+    transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-4px);
+}
+
+.menu-card img {
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Line clamp utility for descriptions */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mobile Menu Animations */
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.mobile-submenu:not(.hidden) {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+}
+
+/* Header Hide/Show Animation */
+#main-header {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Search Overlay Animation */
+#searchOverlay {
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+#searchOverlay.hidden {
+    animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Mega Menu Grid Responsive */
+@media (max-width: 768px) {
+    .mega-menu .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mega-menu .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Menu Item Active States */
+.menu-item.current-menu-item > div > button,
+.menu-item.current-menu-ancestor > div > button {
+    color: #fecaca; /* light red */
+}
+
+/* Mega Menu Shadow and Border */
+.mega-menu {
+    border-top: 3px solid #dc2626; /* red-600 */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile Menu Item Borders */
+.mobile-menu .menu-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu .menu-item:last-child {
+    border-bottom: none;
+}
+
+/* Loading State for Menu Images */
+.menu-card img {
+    background-color: #f3f4f6; /* gray-100 */
+}
+
+.menu-card img[src=""] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d1d5db'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'/%3E%3C/svg%3E");
+    background-size: 48px 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Focus States for Accessibility */
+.menu-item button:focus,
+.mobile-menu a:focus,
+#searchBtn:focus,
+#mobileMenuBtn:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Smooth Menu Card Grid */
+.mega-menu .grid > * {
+    min-height: 280px;
+}
+
+.menu-card .aspect-w-16 {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.menu-card .aspect-w-16 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
