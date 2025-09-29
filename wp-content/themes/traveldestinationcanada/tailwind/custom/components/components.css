@@ -1,0 +1,560 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `components` layer
+ *
+ * “Add more opinionated, complex classes like buttons, form controls, alerts,
+ * etc; the sort of pre-built components you often see in other frameworks that
+ * you might need to override with utility classes.”
+ *
+ * — from https://tailwindcss.com/docs/plugins#adding-components
+ */
+
+/**
+ * Post title styles
+ *
+ * These will be applied to all headings with a `page-title` or `entry-title`
+ * class on the frontend and to the post title in the block editor.
+ *
+ * The supplied styles are meant to match the default `h1` classes from
+ * Tailwind Typography.
+ */
+.page-title,
+.entry-title {
+	@apply max-w-content mx-auto mb-6 text-3xl font-extrabold text-neutral-900;
+}
+
+/**
+ * Layout styles for centered content areas
+ *
+ * If you are controlling the width of your content area with styles applied
+ * to its container, you can delete the following styles whose selectors begin
+ * with `.page-content >` and `.entry-content >`. For more details, please see
+ * the following:
+ *
+ * https://make.wordpress.org/core/2021/06/29/on-layout-and-content-width-in-wordpress-5-8/
+ */
+.page-content>*,
+.entry-content>* {
+	/* Content width from the `theme.json` file */
+	@apply max-w-content mx-auto;
+}
+
+.entry-content>.alignwide {
+	/* Wide width from the `theme.json` file */
+	@apply max-w-wide;
+}
+
+.entry-content>.alignfull {
+	@apply max-w-none;
+}
+
+.entry-content>.alignleft {
+	@apply float-left mr-8;
+}
+
+.entry-content>.alignright {
+	@apply float-right ml-8;
+}
+
+.button_primary {
+	text-decoration: none;
+	font-size: 16px;
+	line-height: 1.4;
+	/* display: flex; */
+	width: fit-content;
+	border-radius: 2px;
+	transition: 0.2s all ease-in-out;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+	transition-duration: .15s;
+	@apply inline-block cursor-pointer px-5 py-3 transition-colors bg-primary font-medium text-white text-left mt-4;
+}
+
+.button_primary:hover {
+	background: rgb(179, 23, 6);
+}
+
+body {
+	background: rgb(255, 255, 255);
+}
+
+.bg_gray {
+	background-color: rgb(74 74 74);
+}
+
+.icon_social {
+	@apply z-0 inline-flex p-3 relative rounded-full after:absolute after:-inset-1 after:z-10 after:block after:rounded-full after:border-2 after:bg-transparent after:opacity-0 after:transition-all after:duration-150 after:ease-out after:scale-0 hover:after:scale-100 hover:after:opacity-100 bg-primary after:border-primary;
+}
+
+/*
+p {
+	font-size: 1rem;
+	@apply font-normal text-base
+} */
+
+.hidden_trans {
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hiden {
+	display: none;
+}
+
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+	content: unset !important;
+}
+
+.text_juane {
+	color: rgb(250 218 70);
+}
+
+.next_cus {
+	right: 33% !important;
+}
+
+.prev_cus {
+	left: 33% !important;
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+.anim--linear {
+	transition-duration: .15s;
+	transition-timing-function: linear;
+}
+
+button.prev_cus,
+button.next_cus {
+	transition: 0.3 all ease-in-out;
+	transition-duration: .15s;
+	transition-timing-function: linear;
+	@apply inline-flex items-center justify-center rounded-full leading-none bg-white hover:bg-primary text-white hover:text-white absolute right-0 top-[242px] z-10 -translate-y-[50%] sm:right-[27%] sm:top-[292px] xl:right-1/3 w-8 h-8 md:w-16 md:h-16
+}
+
+
+
+button.prev_cus_dark,
+button.next_cus_dark {
+	transition: 0.3 all ease-in-out;
+	transition-duration: .15s;
+	transition-timing-function: linear;
+	@apply inline-flex items-center justify-center rounded-full leading-none text-white hover:text-primary absolute z-20 w-8 h-8 md:w-16 md:h-16;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+button.button_ctrlSlide {
+	transition: 0.3s all ease-in-out;
+	transition-duration: .15s;
+	transition-timing-function: linear;
+	@apply inline-flex items-center justify-center rounded-full leading-none bg-white hover:bg-primary text-primary hover:text-white absolute z-20 w-8 h-8 md:w-16 md:h-16
+}
+
+.button-center-vertical {
+	position: absolute;
+	top: 45%;
+	transform: translateY(-50%);
+	z-index: 10;
+}
+
+.swiper-button-disabled {
+	display: block;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: 0.3s all ease-in-out;
+	transition-duration: .15s;
+	transition-timing-function: linear;
+}
+
+button.prev_cus_dark svg,
+button.next_cus_dark svg {
+	@apply text-sm xl:scale-100 text-sm md:text-2xl
+}
+
+.swiper_cus_next svg,
+.swiper_cus_prev svg {
+	width: 24px !important;
+	height: 24px !important;
+}
+
+.swiper_cus_prev,
+.swiper_cus_next {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.swiper_cus_hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+
+.natural {
+	background: rgb(247, 247, 247);
+}
+
+.text-base-banner {
+	color: white;
+	font-size: 1rem;
+	margin-top: 1rem;
+	line-height: 26px;
+}
+
+
+/* Trạng thái mặc định của header */
+.site-header {
+	position: fixed;
+	top: 0;
+	/* Mặc định là top 0 */
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	background-color: #ffffff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+	/* Thêm transition cho 'top' */
+}
+
+/* Khi thanh Admin Bar hiển thị, dịch header xuống */
+/* Khi có admin bar */
+body.admin-bar .site-header {
+	--height-adminbar: 32px;
+	top: var(--height-adminbar);
+}
+
+body.admin-bar .site-header.hidden_header {
+	transform: translateY(calc(-100% - var(--height-adminbar)));
+}
+
+/* Nếu WordPress admin bar tồn tại */
+body.admin-bar .subnav {
+	--height-adminbar: 32px;
+	top: var(--height-adminbar);
+}
+
+.subnav {
+	color: #000;
+	font-weight: 500;
+	font-size: 16px;
+}
+
+
+
+.subnav.is-sticky #dropdownToggleSticky {
+	color: white;
+	border-color: white;
+}
+
+.subnav.is-sticky #dropdownMenuSticky {
+	background: #000;
+}
+
+.subnav,
+.breadcrumb {
+	background: #f6f6f6;
+}
+
+.subnav.is-sticky {
+	background: #000 !important;
+	color: white;
+}
+
+.site-header.hidden_header {
+	transform: translateY(-100%);
+}
+
+.site-header.visible_header {
+	transform: translateY(0);
+}
+
+
+@media screen and (max-width: 600px) {
+
+	body.admin-bar .subnav {
+		--height-adminbar: 0px;
+		top: var(--height-adminbar);
+	}
+
+	body.admin-bar .site-header {
+		--height-adminbar: 0px;
+		top: var(--height-adminbar);
+	}
+
+	body.admin-bar .site-header.hidden_header {
+		transform: translateY(calc(-100% - var(--height-adminbar)));
+	}
+}
+
+
+@media screen and (max-width: 782px) {}
+
+
+.target-section {
+	/* Thay 70px bằng chiều cao thực tế của subnav */
+	scroll-margin-top: 60px;
+	min-height: 100px;
+	/* giúp tránh section quá ngắn */
+}
+
+#dropdownMenuSticky a {
+	transition: 0.15s all ease-in-out;
+}
+
+.templates ul {
+	margin-left: 1em;
+}
+
+.subnav-item {}
+
+/* Active highlight */
+.subnav-item.active {
+	@apply bg-primary text-white;
+}
+
+.subnav-item.active:hover {
+	/* color: ; */
+}
+
+
+
+/* figure.figure_img {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	inset: 0px;
+	color: transparent;
+} */
+
+.banner_single_thing {
+	position: relative;
+}
+
+.banner_single_thing img {
+	object-fit: cover;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	inset: 0px;
+	color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #000;
+}
+
+.button_has_icon:hover svg {
+	transform: translateX(0.25rem);
+}
+
+.button_has_icon span {
+	line-height: 1.4;
+}
+
+.anim--default {
+	transition-property: all;
+	transition-duration: .3s;
+	transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+}
+
+.anim--hover-image,
+.has_effect img {
+	transition-property: all;
+	transition-duration: .3s;
+	transition-timing-function: cubic-bezier(.215, .61, .355);
+}
+
+.text-base {
+	font-size: 1rem;
+}
+
+.user-select-none {
+	user-select: none;
+	pointer-events: none;
+
+}
+
+.text-link {
+	color: rgb(179 23 6);
+}
+
+.has_effect img:hover {
+	--tw-translate-x: 0;
+	--tw-translate-y: -0.5rem;
+	--tw-scale-x: 1.05;
+	--tw-scale-y: 1.05;
+	--tw-rotate: 0;
+	--tw-skew-x: 0;
+	--tw-skew-y: 0;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+	opacity: .9;
+}
+
+.box_natural.img_box img {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	inset: 0px;
+	color: transparent;
+}
+
+#global {
+	height: 80vh;
+}
+
+
+.section_c {
+	@apply relative z-0 text-center my-16 lg:my-24
+}
+
+.container_c {
+	@apply px-4;
+}
+
+.section_c .scale-110 {
+	will-change: transform;
+	/* Tối ưu hiệu ứng */
+	backface-visibility: hidden;
+	/* Fix flickering */
+}
+
+.section_c {
+	overflow: hidden;
+	/* Ẩn phần ảnh tràn ra ngoài */
+}
+
+.primary2 {
+	transition: all 0.2s ease-in-out;
+}
+
+.primary2:hover {
+	color: rgb(179, 23, 6);
+
+}
+
+.bg-primary2 {
+	background-color: rgb(179, 23, 6);
+}
+
+.border-primary2 {
+	border-color: rgb(179, 23, 6);
+}
+
+.c_arrow_left {
+	/* left: 0%; */
+	transform: translate(-50%, -50%);
+}
+
+.c_arrow_left svg {
+	rotate: 180deg;
+}
+
+.c_arrow_right {
+	/* left: calc(80vw + 24px); */
+	right: 1%;
+	left: unset;
+}
+
+.wrapper_slide {
+	padding: 0 16px;
+}
+
+.button_disable {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background: #989898;
+}
+
+
+@media screen and (min-width: 640px) {
+	.c_arrow_right {
+		left: calc(80vw + 2%);
+	}
+
+	.section_slide_4 .c_arrow_right {
+		left: calc(85vw + 2%);
+	}
+
+	.col_4_5 {
+		grid-template-columns: 4rem 1fr 4rem;
+	}
+
+	.col_4_5 .inner_4_5 {
+		grid-column-start: 2;
+	}
+
+
+}
+
+@media screen and (min-width: 768px) {
+	.wrapper_slide {
+		padding-left: 64px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+
+	.pr0 {
+		padding-right: 0px !important;
+	}
+
+	.c_arrow_right {
+		left: calc(84vw + 5%);
+	}
+
+	.section_slide_4 .c_arrow_right {
+		left: calc(86vw + 5.5%);
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.section_slide_4 .c_arrow_right {
+		left: calc(87vw + 82px);
+	}
+
+	.text-base-banner {
+		font-size: 1.125rem;
+		margin-top: 1rem;
+		line-height: 28px;
+	}
+}
+
+@media screen and (min-width: 1440px) {
+
+	.c_arrow_right {
+		left: calc(84vw + 5.5%);
+	}
+
+	.section_slide_4 .c_arrow_right {
+		left: calc(88vw + 6%);
+
+	}
+
+	.col_4_5 {
+		grid-template-columns: 5rem 1fr 5rem;
+	}
+
+	.col_4_5 .inner_4_5 {
+		grid-column-start: 4;
+	}
+
+	.wrapper_slide {
+		padding-left: 90px;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	.min_1600_px0 {
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+}

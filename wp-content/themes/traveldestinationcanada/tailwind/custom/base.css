@@ -1,0 +1,62 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `base` layer
+ */
+
+/**
+ * This uses the background and foreground colors declared in the `theme.json`
+ * file and is applied both to the front end and in the block editor.
+ */
+body {
+	@apply bg-background text-foreground font-sans;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-block-start: 0px !important;
+	margin-block-end: 0px !important;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+select,
+textarea {
+	background-color: transparent;
+	outline: none;
+}
+
+button {
+	cursor: pointer;
+	background-color: transparent;
+	outline: none;
+	border: 0;
+}
+
+body {
+	min-height: 100vh;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1;
+}

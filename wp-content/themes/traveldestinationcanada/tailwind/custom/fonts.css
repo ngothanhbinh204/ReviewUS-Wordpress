@@ -1,0 +1,47 @@
+/**
+ * Custom `@font-face` rules
+ *
+ * These will be added immediately before Tailwind’s `base` layer.
+ */
+/* SUISSE INTL - FONT FACES */
+@font-face {
+	font-family: 'Suisse Int';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/suisseintl_new/SuisseIntl-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Suisse Int';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/suisseintl_new/SuisseIntl-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Suisse Int';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/suisseintl_new/SuisseIntl-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Suisse Int';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/suisseintl_new/SuisseIntl-Book.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Suisse Int';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/suisseintl_new/SuisseIntl-Regular-WebS.woff") format("woff");
+	font-weight: 300;
+	font-style: normal;
+}
+
+
+
+/* add main fonts */
+* {
+	font-family: 'Suisse Int', sans-serif;
+}
