@@ -260,6 +260,11 @@ require get_template_directory() . '/inc/class-custom-menu-walker.php';
 require get_template_directory() . '/inc/class-mobile-menu-walker.php';
 
 /**
+ * Interactive Map Component (USA Multi-site)
+ */
+require get_template_directory() . '/inc/usa-interactive-map.php';
+
+/**
  * Get menu item image with fallbacks
  */
 function get_menu_item_image($menu_item_id, $object_id = null, $object_type = null, $size = 'medium')
@@ -563,6 +568,3 @@ function create_thing_to_do_cpt()
 	register_post_type('thing_to_do', $args);
 }
 add_action('init', 'create_thing_to_do_cpt', 0);
-
-
-// Register section - feild for metabox
