@@ -205,7 +205,20 @@ button.next_cus_dark svg {
 	line-height: 26px;
 }
 
-
+.bg-light-grey {
+	background-color: rgba(248,248,248);
+}
+nav.rank-math-breadcrumb > p {
+	line-height: 24px;
+}
+nav.rank-math-breadcrumb a {
+	color: var(--color-link-text);
+	text-decoration: underline;
+}
+nav.rank-math-breadcrumb .separator {
+	margin: 0 8px;
+	color: var(--color-text);
+}
 /* Trạng thái mặc định của header */
 .site-header {
 	position: fixed;
@@ -413,7 +426,7 @@ h6 {
 
 
 .section_c {
-	@apply relative z-0 text-center my-16 lg:my-24
+	@apply relative z-0 text-center my-16 lg:my-20
 }
 
 .container_c {

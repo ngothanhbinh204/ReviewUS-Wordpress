@@ -190,7 +190,7 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
-    
+
     .tab-btn {
         font-size: 0.875rem;
         padding: 0.5rem 0.75rem;
@@ -201,7 +201,7 @@
     .mega-menu .grid {
         grid-template-columns: 1fr;
     }
-    
+
     .tab-btn {
         font-size: 0.75rem;
         padding: 0.5rem;
@@ -254,7 +254,7 @@
 
 /* Smooth Menu Card Grid */
 .mega-menu .grid > * {
-    min-height: 280px;
+    /* min-height: 280px; */
 }
 
 .menu-card .aspect-w-16 {
