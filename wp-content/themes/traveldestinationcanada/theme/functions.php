@@ -415,30 +415,30 @@ function handle_filter_things_to_do()
 				$thumbnail = 'http://destinationcanada.local/wp-content/uploads/2025/06/banner_section.webp';
 			}
 ?>
-			<div class="card relative h-full card_thing">
-				<a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
-					<div class="relative">
-						<figure class="relative aspect-square has_effect">
-							<?php if ($thumbnail): ?>
-								<img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full"
-									src="http://destinationcanada.local/wp-content/uploads/2025/06/banner_section.webp">
-							<?php endif; ?>
+<div class="card relative h-full card_thing">
+    <a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
+        <div class="relative">
+            <figure class="relative aspect-square has_effect">
+                <?php if ($thumbnail): ?>
+                <img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full"
+                    src="http://destinationcanada.local/wp-content/uploads/2025/06/banner_section.webp">
+                <?php endif; ?>
 
-							<figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
-								Destination BC</figcaption>
-						</figure>
-					</div>
-				</a>
-				<div class="mb-4 last:mb-0">
-					<h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
-						<a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
-							<?php the_title(); ?></a>
-					</h3>
-					<!-- Display Content excerpt -->
-					<!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
+                <figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
+                    Destination BC</figcaption>
+            </figure>
+        </div>
+    </a>
+    <div class="mb-4 last:mb-0">
+        <h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
+            <a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
+                <?php the_title(); ?></a>
+        </h3>
+        <!-- Display Content excerpt -->
+        <!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
 
-				</div>
-			</div>
+    </div>
+</div>
 <?php
 		}
 	} else {
@@ -568,3 +568,53 @@ function create_thing_to_do_cpt()
 	register_post_type('thing_to_do', $args);
 }
 add_action('init', 'create_thing_to_do_cpt', 0);
+
+
+
+add_action('init', function () {
+	register_post_type('video', array(
+		'labels' => array(
+			'name' => 'Videos',
+			'singular_name' => 'Video',
+			'menu_name' => 'Videos',
+			'all_items' => 'All Videos',
+			'edit_item' => 'Edit Video',
+			'view_item' => 'View Video',
+			'view_items' => 'View Videos',
+			'add_new_item' => 'Add New Video',
+			'add_new' => 'Add New Video',
+			'new_item' => 'New Video',
+			'parent_item_colon' => 'Parent Video:',
+			'search_items' => 'Search Videos',
+			'not_found' => 'No videos found',
+			'not_found_in_trash' => 'No videos found in Trash',
+			'archives' => 'Video Archives',
+			'attributes' => 'Video Attributes',
+			'insert_into_item' => 'Insert into video',
+			'uploaded_to_this_item' => 'Uploaded to this video',
+			'filter_items_list' => 'Filter videos list',
+			'filter_by_date' => 'Filter videos by date',
+			'items_list_navigation' => 'Videos list navigation',
+			'items_list' => 'Videos list',
+			'item_published' => 'Video published.',
+			'item_published_privately' => 'Video published privately.',
+			'item_reverted_to_draft' => 'Video reverted to draft.',
+			'item_scheduled' => 'Video scheduled.',
+			'item_updated' => 'Video updated.',
+			'item_link' => 'Video Link',
+			'item_link_description' => 'A link to a video.',
+		),
+		'description' => 'Video HomePage',
+		'public' => true,
+		'show_in_rest' => true,
+		'menu_position' => 3,
+		'menu_icon' => 'dashicons-embed-video',
+		'supports' => array(
+			0 => 'title',
+			1 => 'editor',
+			2 => 'thumbnail',
+			3 => 'custom-fields',
+		),
+		'delete_with_user' => false,
+	));
+});
