@@ -388,87 +388,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-// document.addEventListener('DOMContentLoaded', function () {
-// 	if (typeof Swiper !== 'undefined') {
-// 		const swiper1 = new Swiper('.sliderGeneral3_5', {
-// 			slidesPerView: 2.2,
-// 			spaceBetween: 24,
-// 			speed: 600,
-// 			freeMode: {
-// 				enabled: false, // Nếu muốn snap slide
-// 			},
-// 			grabCursor: true,
-// 			loop: false,
-// 			navigation: {
-// 				nextEl: '.swiper--general-button-next',
-// 				prevEl: '.swiper--general-button-prev',
-// 			},
-
-// 			breakpoints: {
-// 				480: {
-// 					slidesPerView: 1.2,
-// 					slidesPerGroup: 1,
-// 				},
-// 				768: {
-// 					slidesPerView: 2.2,
-// 					slidesPerGroup: 2,
-// 				},
-// 				1024: {
-// 					slidesPerView: 3.2,
-// 					slidesPerGroup: 3,
-// 				},
-// 			},
-// 		});
-// 	} else {
-// 		console.error('Swiper is not defined');
-// 	}
-// });
-
-// Slider 4,2
-
-// document.addEventListener('DOMContentLoaded', function () {
-// 	if (typeof Swiper !== 'undefined') {
-// 		const swiper1 = new Swiper('.slider4_2', {
-// 			slidesPerView: 1.2,
-// 			spaceBetween: 24,
-// 			speed: 600,
-// 			freeMode: {
-// 				enabled: false, // Nếu muốn snap slide
-// 			},
-// 			grabCursor: true,
-// 			loop: false,
-// 			navigation: {
-// 				nextEl: '.swiper--general-button-next',
-// 				prevEl: '.swiper--general-button-prev',
-// 			},
-
-// 			breakpoints: {
-// 				480: {
-// 					slidesPerView: 1,
-// 					slidesPerGroup: 1,
-// 				},
-// 				768: {
-// 					slidesPerView: 2.2,
-// 					slidesPerGroup: 2,
-// 				},
-// 				1024: {
-// 					slidesPerView: 3.2,
-// 					slidesPerGroup: 3,
-// 				},
-// 				1280: {
-// 					slidesPerView: 4.2,
-// 					slidesPerGroup: 4,
-// 				},
-// 			},
-// 		});
-// 	} else {
-// 		console.error('Swiper is not defined');
-// 	}
-// });
-
-// Tạo HTML button dựa trên những input đã render trong Map
-
-// Editor Map
 document.addEventListener('DOMContentLoaded', function () {
 	const wrappers = document.querySelectorAll('.map-wrapper');
 
@@ -557,13 +476,13 @@ document.addEventListener('DOMContentLoaded', function () {
 // Things To Do Filter
 jQuery(document).ready(function ($) {
 	let activeFilters = {
-		territories: [],
+		provinces: [],
 		themes: [],
 		seasons: [],
 	};
 
 	let appliedFilters = {
-		territories: [],
+		provinces: [],
 		themes: [],
 		seasons: [],
 	};
@@ -591,6 +510,10 @@ jQuery(document).ready(function ($) {
 		appliedFilters[filterType] = [...checkedValues];
 
 		currentPage = 1;
+
+		// Update URL with current filters
+		updateURL();
+
 		updateFilterTags();
 		loadFilteredThings();
 		closeAllDropdowns();
@@ -635,6 +558,10 @@ jQuery(document).ready(function ($) {
 		$('#' + filterType + '-dropdown input').prop('checked', false);
 		activeFilters[filterType] = [];
 		currentPage = 1;
+
+		// Update URL
+		updateURL();
+
 		updateFilterTags();
 		loadFilteredThings();
 		closeAllDropdowns();
@@ -653,8 +580,13 @@ jQuery(document).ready(function ($) {
 			false
 		);
 		currentPage = 1;
+
+		// Update URL
+		updateURL();
+
 		updateFilterTags();
 		loadFilteredThings();
+		updateActiveFilterButtons();
 	});
 
 	$('.filter-dropdown input[type="checkbox"]').on('change', function () {
@@ -671,15 +603,20 @@ jQuery(document).ready(function ($) {
 
 	$('.clear-all-filters').click(function () {
 		activeFilters = {
-			territories: [],
+			provinces: [],
 			themes: [],
 			seasons: [],
 		};
 		$('.filter-dropdown input').prop('checked', false);
 		currentPage = 1;
+
+		// Update URL to remove all query parameters
+		const url = new URL(window.location);
+		url.search = '';
+		window.history.pushState({}, '', url);
+
 		updateFilterTags();
 		loadFilteredThings();
-
 		updateActiveFilterButtons();
 	});
 
@@ -831,32 +768,46 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
-	// 1. Get query params at URL
+	// 1. Get query params at URL (support comma-separated values)
 	function getURLParams() {
 		const params = {};
-		window.location.search
-			.replace('?', '')
-			.split('&')
-			.forEach((param) => {
-				const [key, value] = param.split('=');
-				if (key && value) {
-					if (params[key]) {
-						params[key] = [].concat(
-							params[key],
-							decodeURIComponent(value)
-						);
-					} else {
-						params[key] = decodeURIComponent(value);
-					}
-				}
-			});
+		const searchParams = new URLSearchParams(window.location.search);
+
+		searchParams.forEach((value, key) => {
+			// Split by comma to support multiple values in one parameter
+			const values = value.split(',').map(v => v.trim()).filter(v => v);
+
+			if (values.length > 1) {
+				params[key] = values;
+			} else if (values.length === 1) {
+				params[key] = values[0];
+			}
+		});
+
 		return params;
 	}
 
-	// 2. Áp dụng filter từ URL (nếu có)
+	// 2. Update URL with current filters (comma-separated for multi-select)
+	function updateURL() {
+		const url = new URL(window.location);
+		const searchParams = new URLSearchParams();
+
+		// Add all active filters to URL with comma-separated values
+		Object.keys(activeFilters).forEach((filterType) => {
+			if (activeFilters[filterType].length > 0) {
+				const values = activeFilters[filterType].map(f => f.value).join(',');
+				searchParams.set(filterType, values);
+			}
+		});
+
+		url.search = searchParams.toString();
+		window.history.pushState({}, '', url);
+	}
+
+	// 3. Áp dụng filter từ URL (nếu có)
 	function applyURLFilters() {
 		const urlParams = getURLParams();
-		const filterKeys = ['territories', 'themes', 'seasons'];
+		const filterKeys = ['provinces', 'themes', 'seasons'];
 
 		let hasAny = false;
 
@@ -894,9 +845,8 @@ jQuery(document).ready(function ($) {
 		}
 	}
 
-	// 3. Gọi sau khi định nghĩa function
+	// 4. Initialize filters from URL and load posts
 	applyURLFilters();
-
 	loadFilteredThings();
 });
 
@@ -929,152 +879,6 @@ function animateNewCards(cards) {
 		}
 	});
 }
-
-// sub nav scroll to section for click'
-
-// document.addEventListener('DOMContentLoaded', function () {
-// 	const header = document.getElementById('main-header');
-// 	const subnav = document.querySelector('.subnav');
-// 	const navLinks = document.querySelectorAll('.subnav-item');
-// 	const marker = document.getElementById('subnav-marker');
-// 	const labelSpan = document.getElementById('dropdownLabel');
-
-// 	let lastScrollTop = 0;
-// 	let isSubnavSticky = false;
-// 	let hasSubnavBeenSticky = false;
-
-// 	// === Sticky Detection ===
-// 	if (marker && subnav) {
-// 		const stickyObserver = new IntersectionObserver(
-// 			([entry]) => {
-// 				isSubnavSticky = !entry.isIntersecting;
-// 				if (isSubnavSticky) {
-// 					subnav.classList.add('is-sticky');
-// 					hasSubnavBeenSticky = true;
-// 				} else {
-// 					subnav.classList.remove('is-sticky');
-// 				}
-// 			},
-// 			{ threshold: 0 }
-// 		);
-// 		stickyObserver.observe(marker);
-// 	}
-
-// 	// === Header scroll behavior ===
-// 	window.addEventListener('scroll', function () {
-// 		const currentScroll =
-// 			window.pageYOffset || document.documentElement.scrollTop;
-// 		const scrollingDown = currentScroll > lastScrollTop;
-// 		const scrollingUp = currentScroll < lastScrollTop;
-
-// 		if (scrollingDown && currentScroll > 50) {
-// 			header.classList.add('hidden_header');
-// 			header.classList.remove('visible_header');
-// 		} else if (scrollingUp) {
-// 			if (!isSubnavSticky) {
-// 				header.classList.remove('hidden_header');
-// 				header.classList.add('visible_header');
-// 			} else {
-// 				header.classList.add('hidden_header');
-// 				header.classList.remove('visible_header');
-// 			}
-// 		}
-// 		lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-// 	});
-
-// 	// === Highlight nav when scroll ===
-// 	const sections = Array.from(navLinks)
-// 		.map((link) => document.querySelector(link.getAttribute('href')))
-// 		.filter(Boolean);
-
-// 	const seenSections = new Set();
-
-// 	const sectionObserver = new IntersectionObserver(
-// 		(entries) => {
-// 			if (!hasSubnavBeenSticky) return;
-
-// 			let hasActive = false;
-// 			entries.forEach((entry) => {
-// 				if (entry.isIntersecting) {
-// 					const id = entry.target.id;
-// 					hasActive = true;
-
-// 					// Set active
-// 					navLinks.forEach((link) => link.classList.remove('active'));
-// 					const activeLink = document.querySelector(
-// 						`.subnav-item[href="#${id}"]`
-// 					);
-// 					if (activeLink) activeLink.classList.add('active');
-
-// 					// Update label
-// 					if (labelSpan)
-// 						labelSpan.textContent = activeLink?.textContent.trim();
-// 				}
-// 			});
-
-// 			if (!hasActive) {
-// 				navLinks.forEach((link) => link.classList.remove('active'));
-// 				if (window.scrollY < subnav.offsetTop - 100 && labelSpan) {
-// 					labelSpan.textContent = 'Jump to section';
-// 				}
-// 			}
-// 		},
-// 		{
-// 			threshold: 0.5,
-// 			rootMargin: '-20% 0px -40% 0px',
-// 		}
-// 	);
-
-// 	sections.forEach((section) => sectionObserver.observe(section));
-
-// 	// === Smooth scroll on click ===
-// 	navLinks.forEach((link) => {
-// 		link.addEventListener('click', function (e) {
-// 			e.preventDefault();
-// 			const target = document.querySelector(this.getAttribute('href'));
-// 			if (target) {
-// 				const offset =
-// 					subnav.offsetHeight +
-// 					(document.body.classList.contains('admin-bar') ? 32 : 0) +
-// 					60;
-// 				const top =
-// 					target.getBoundingClientRect().top +
-// 					window.pageYOffset -
-// 					offset;
-
-// 				window.scrollTo({ top, behavior: 'smooth' });
-
-// 				// cập nhật label dropdown
-// 				if (labelSpan) labelSpan.textContent = this.textContent.trim();
-// 			}
-// 		});
-// 	});
-
-// 	// Show header nếu ở top
-// 	if (window.pageYOffset === 0) {
-// 		header.classList.remove('hidden_header');
-// 		header.classList.add('visible_header');
-// 	}
-// });
-
-// // === Dropdown toggle cho mobile ===
-// const dropdownToggleSticky = document.getElementById('dropdownToggleSticky');
-// const dropdownMenuSticky = document.getElementById('dropdownMenuSticky');
-
-// if (dropdownToggleSticky && dropdownMenuSticky) {
-// 	dropdownToggleSticky.addEventListener('click', () => {
-// 		dropdownMenuSticky.classList.toggle('hidden');
-// 	});
-// }
-
-// // Tự ẩn dropdown sau khi click
-// const dropdownLinks = dropdownMenuSticky?.querySelectorAll('a') || [];
-// dropdownLinks.forEach((link) => {
-// 	link.addEventListener('click', () => {
-// 		dropdownMenuSticky.classList.add('hidden');
-// 	});
-// });
-// sub nav scroll to section for click
 
 document.addEventListener('DOMContentLoaded', function () {
 	const header = document.getElementById('main-header');

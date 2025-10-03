@@ -56,16 +56,34 @@ if (empty($sub_title) && empty($posts)) {
                 <?php if (!empty($posts) && is_array($posts)): ?>
                 <?php foreach ($posts as $post_item): ?>
                 <?php
-						// Setup post data
-						$post_id = is_object($post_item) ? $post_item->ID : $post_item;
-						$post_title = get_the_title($post_id);
-						$post_link = get_permalink($post_id);
-						$post_thumbnail = get_the_post_thumbnail_url($post_id, 'large');
-						$post_excerpt = get_the_excerpt($post_id);
+						// Kiểm tra nếu là taxonomy term hay post thật
+						$is_term = is_object($post_item) && isset($post_item->post_type) && $post_item->post_type === 'theme_term';
+
+						if ($is_term) {
+							// Xử lý cho taxonomy term
+							$post_id = $post_item->ID;
+							$post_title = $post_item->post_title;
+							$post_link = $post_item->guid;
+							$post_excerpt = $post_item->post_excerpt;
+
+							// Lấy thumbnail từ object hoặc ACF
+							if (isset($post_item->thumbnail) && is_array($post_item->thumbnail) && isset($post_item->thumbnail['url'])) {
+								$post_thumbnail = $post_item->thumbnail['url'];
+							} else {
+								$post_thumbnail = '';
+							}
+						} else {
+							// Xử lý cho post thông thường
+							$post_id = is_object($post_item) ? $post_item->ID : $post_item;
+							$post_title = get_the_title($post_id);
+							$post_link = get_permalink($post_id);
+							$post_thumbnail = get_the_post_thumbnail_url($post_id, 'large');
+							$post_excerpt = get_the_excerpt($post_id);
+						}
 
 						// Fallback image
 						if (!$post_thumbnail) {
-							$post_thumbnail = '/wp-content/uploads/2025/06/banner_section.webp';
+							$post_thumbnail = '/wp-content/uploads/2025/10/default-destination.webp';
 						}
 						?>
                 <div class="swiper-slide has_effect fu_effect">
@@ -182,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     slidesPerView: 4.2,
                     slidesPerGroup: 4,
                 },
+
             },
         });
 

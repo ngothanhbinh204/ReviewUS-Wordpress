@@ -23,7 +23,7 @@ if (empty($sub_title) && empty($items)) {
 }
 ?>
 
-<section class="section_slide_3 natural relative z-0 bg-light-grey py-8 lg:py-16 my-16 lg:my-24">
+<section class="section_slide_3 natural relative z-0 bg-light-grey py-12 lg:py-16">
     <div class="c-container px-4 md:px-16 2xl:px-20 3xl:px-0 max-w-screen-2xl 2xl:mx-auto">
         <div class="items-end justify-between md:flex">
             <div class="mb-2 md:mb-0 md:max-w-[70%] xl:max-w-none">
@@ -60,50 +60,48 @@ if (empty($sub_title) && empty($items)) {
     <div class="relative wrapper_slide mt-4 md:mt-6 lg:mt-7 xl:mt-12 pr0">
         <div class="swiper <?php echo esc_attr($slide_id); ?>">
             <div class="swiper-wrapper">
-                <?php if (!empty($items) && is_array($items)): ?>
-                <?php foreach ($items as $item): ?>
+                <?php if (!empty($posts) && is_array($posts)): ?>
+                <?php foreach ($posts as $post_item): ?>
                 <?php
-						// Handle both post objects and custom arrays
-						if (is_object($item)) {
-							// Post object
-							$item_id = $item->ID;
-							$item_title = get_the_title($item_id);
-							$item_link = get_permalink($item_id);
-							$item_image = get_the_post_thumbnail_url($item_id, 'large');
-							$item_excerpt = get_the_excerpt($item_id);
-						} else if (is_array($item)) {
-							// Custom array
-							$item_id = $item['id'] ?? '';
-							$item_title = $item['title'] ?? '';
-							$item_link = $item['link'] ?? '#';
-							$item_image = $item['image'] ?? '';
-							$item_excerpt = $item['excerpt'] ?? '';
+						// Kiểm tra nếu là taxonomy term hay post thật
+						$is_term = is_object($post_item) && isset($post_item->post_type) && $post_item->post_type === 'theme_term';
+
+						if ($is_term) {
+							// Xử lý cho taxonomy term
+							$post_id = $post_item->ID;
+							$post_title = $post_item->post_title;
+							$post_link = $post_item->guid;
+							$post_excerpt = $post_item->post_excerpt;
+
+							// Lấy thumbnail từ object hoặc ACF
+							if (isset($post_item->thumbnail) && is_array($post_item->thumbnail) && isset($post_item->thumbnail['url'])) {
+								$post_thumbnail = $post_item->thumbnail['url'];
+							} else {
+								$post_thumbnail = '';
+							}
 						} else {
-							// Post ID
-							$item_id = $item;
-							$item_title = get_the_title($item_id);
-							$item_link = get_permalink($item_id);
-							$item_image = get_the_post_thumbnail_url($item_id, 'large');
-							$item_excerpt = get_the_excerpt($item_id);
+							// Xử lý cho post thông thường
+							$post_id = is_object($post_item) ? $post_item->ID : $post_item;
+							$post_title = get_the_title($post_id);
+							$post_link = get_permalink($post_id);
+							$post_thumbnail = get_the_post_thumbnail_url($post_id, 'large');
+							$post_excerpt = get_the_excerpt($post_id);
 						}
 
 						// Fallback image
-						if (!$item_image) {
-							$item_image = '/wp-content/uploads/2025/06/banner_section.webp';
+						if (!$post_thumbnail) {
+							$post_thumbnail = '/wp-content/uploads/2025/10/default-destination.webp';
 						}
 						?>
-                <div class="swiper-slide has_effect fadeup_effect">
+                <div class="swiper-slide has_effect fu_effect">
                     <div class="overflow-hidden w-full">
                         <div class="relative overflow-hidden rounded h-[66vh] sm:h-[46vw] lg:h-[32vw]">
-                            <a class="absolute inset-0 block overflow-hidden" href="<?php echo esc_url($item_link); ?>">
+                            <a class="absolute inset-0 block overflow-hidden" href="<?php echo esc_url($post_link); ?>">
                                 <div class="relative h-full w-full">
                                     <figure class="relative h-full w-full">
-                                        <img alt="<?php echo esc_attr($item_title); ?>" loading="lazy"
+                                        <img alt="<?php echo esc_attr($post_title); ?>" loading="lazy"
                                             class="object-cover h-full w-full"
-                                            src="<?php echo esc_url($item_image); ?>">
-                                        <figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
-                                            <?php echo esc_html($item_title); ?>
-                                        </figcaption>
+                                            src="<?php echo esc_url($post_thumbnail); ?>">
                                     </figure>
                                 </div>
                             </a>
@@ -112,13 +110,13 @@ if (empty($sub_title) && empty($items)) {
                             <h3
                                 class="break-words text-[22px] font-bold leading-tight lg:text-[24px] 2xl:text-[28px] mt-2">
                                 <a class="primary2 transition-all duration-150 ease-linear"
-                                    href="<?php echo esc_url($item_link); ?>">
-                                    <?php echo esc_html($item_title); ?>
+                                    href="<?php echo esc_url($post_link); ?>">
+                                    <?php echo esc_html($post_title); ?>
                                 </a>
                             </h3>
-                            <?php if ($item_excerpt): ?>
+                            <?php if ($post_excerpt): ?>
                             <p class="text-sm text-gray-600 mt-2 line-clamp-2">
-                                <?php echo esc_html($item_excerpt); ?>
+                                <?php echo esc_html($post_excerpt); ?>
                             </p>
                             <?php endif; ?>
                         </div>
@@ -126,15 +124,15 @@ if (empty($sub_title) && empty($items)) {
                 </div>
                 <?php endforeach; ?>
                 <?php else: ?>
-                <!-- Fallback: Placeholder slides if no items -->
+                <!-- Fallback: Placeholder slides if no posts -->
                 <?php for ($i = 0; $i < 4; $i++): ?>
-                <div class="swiper-slide has_effect fadeup_effect">
+                <div class="swiper-slide has_effect fu_effect">
                     <div class="overflow-hidden w-full">
                         <div class="relative overflow-hidden rounded h-[66vh] sm:h-[46vw] lg:h-[32vw] bg-gray-200">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <p class="text-gray-400 text-center px-4">
-                                    No items available<br>
-                                    <span class="text-xs">Add items in configuration</span>
+                                    No posts selected<br>
+                                    <span class="text-xs">Add posts in ACF</span>
                                 </p>
                             </div>
                         </div>

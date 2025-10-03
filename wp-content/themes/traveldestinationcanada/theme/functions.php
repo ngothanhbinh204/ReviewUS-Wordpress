@@ -360,44 +360,63 @@ function handle_filter_things_to_do()
 	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 	$posts_per_page = 3;
 
-	$filters = $_POST['filters'];
+	$filters = isset($_POST['filters']) ? $_POST['filters'] : array();
 
 	// Build tax query
 	$tax_query = array('relation' => 'AND');
 
-	if (!empty($filters['territories'])) {
-		$territory_values = array_column($filters['territories'], 'value');
-		$tax_query[] = array(
-			'taxonomy' => 'category-territory',
-			'field' => 'slug',
-			'terms' => $territory_values,
-			'operator' => 'IN'
-		);
+	// Helper function to extract values from filter array
+	$extract_values = function ($filter_array) {
+		if (empty($filter_array)) {
+			return array();
+		}
+		// If it's already an array of values
+		if (isset($filter_array[0]) && is_array($filter_array[0]) && isset($filter_array[0]['value'])) {
+			return array_column($filter_array, 'value');
+		}
+		// If it's a simple array of strings
+		return $filter_array;
+	};
+
+	if (!empty($filters['provinces'])) {
+		$province_values = $extract_values($filters['provinces']);
+		if (!empty($province_values)) {
+			$tax_query[] = array(
+				'taxonomy' => 'provinces_territories',
+				'field' => 'slug',
+				'terms' => $province_values,
+				'operator' => 'IN'
+			);
+		}
 	}
 
 	if (!empty($filters['themes'])) {
-		$theme_values = array_column($filters['themes'], 'value');
-		$tax_query[] = array(
-			'taxonomy' => 'category-theme',
-			'field' => 'slug',
-			'terms' => $theme_values,
-			'operator' => 'IN'
-		);
+		$theme_values = $extract_values($filters['themes']);
+		if (!empty($theme_values)) {
+			$tax_query[] = array(
+				'taxonomy' => 'thing_themes',
+				'field' => 'slug',
+				'terms' => $theme_values,
+				'operator' => 'IN'
+			);
+		}
 	}
 
 	if (!empty($filters['seasons'])) {
-		$season_values = array_column($filters['seasons'], 'value');
-		$tax_query[] = array(
-			'taxonomy' => 'category-season',
-			'field' => 'slug',
-			'terms' => $season_values,
-			'operator' => 'IN'
-		);
+		$season_values = $extract_values($filters['seasons']);
+		if (!empty($season_values)) {
+			$tax_query[] = array(
+				'taxonomy' => 'seasons',
+				'field' => 'slug',
+				'terms' => $season_values,
+				'operator' => 'IN'
+			);
+		}
 	}
 
 	// Query things to do
 	$args = array(
-		'post_type' => 'thing-to-do',
+		'post_type' => 'thing_to_do',
 		'posts_per_page' => $posts_per_page,
 		'post_status' => 'publish',
 		'paged' => $page,
@@ -410,35 +429,35 @@ function handle_filter_things_to_do()
 	if ($query->have_posts()) {
 		while ($query->have_posts()) {
 			$query->the_post();
-			$thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+			$thumbnail = get_the_post_thumbnail_url(get_the_ID());
 			if (!$thumbnail) {
-				$thumbnail = 'http://destinationcanada.local/wp-content/uploads/2025/06/banner_section.webp';
+				$thumbnail = '/wp-content/uploads/2025/09/banner_section.webp';
 			}
 ?>
-<div class="card relative h-full card_thing">
-    <a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
-        <div class="relative">
-            <figure class="relative aspect-square has_effect">
-                <?php if ($thumbnail): ?>
-                <img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full"
-                    src="http://destinationcanada.local/wp-content/uploads/2025/06/banner_section.webp">
-                <?php endif; ?>
+			<div class="card relative h-full card_thing">
+				<a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
+					<div class="relative">
+						<figure class="relative aspect-square has_effect">
+							<?php if ($thumbnail): ?>
+								<img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full w-full"
+									src="<?php echo esc_url($thumbnail); ?>">
+							<?php endif; ?>
 
-                <figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
-                    Destination BC</figcaption>
-            </figure>
-        </div>
-    </a>
-    <div class="mb-4 last:mb-0">
-        <h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
-            <a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
-                <?php the_title(); ?></a>
-        </h3>
-        <!-- Display Content excerpt -->
-        <!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
+							<figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
+								Destination BC</figcaption>
+						</figure>
+					</div>
+				</a>
+				<div class="mb-4 last:mb-0">
+					<h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
+						<a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
+							<?php the_title(); ?></a>
+					</h3>
+					<!-- Display Content excerpt -->
+					<!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
 
-    </div>
-</div>
+				</div>
+			</div>
 <?php
 		}
 	} else {
@@ -559,7 +578,7 @@ function create_thing_to_do_cpt()
 		'publicly_queryable'    => true,
 		'capability_type'       => 'post',
 		'rewrite'               => array(
-			'slug' => 'things-to-do', // URL: /things-to-do/festival-in-vancouver/
+			'slug' => 'things-to-do',
 			'with_front' => false
 		),
 		'show_in_rest'          => true,
@@ -568,6 +587,89 @@ function create_thing_to_do_cpt()
 	register_post_type('thing_to_do', $args);
 }
 add_action('init', 'create_thing_to_do_cpt', 0);
+
+// Register Taxonomies for Thing To Do
+function create_thing_to_do_taxonomies()
+{
+	// Provinces and Territories Taxonomy
+	register_taxonomy(
+		'provinces_territories',
+		'thing_to_do',
+		array(
+			'label' => __('Provinces & Territories'),
+			'labels' => array(
+				'name' => __('Provinces & Territories'),
+				'singular_name' => __('Province/Territory'),
+				'search_items' => __('Search Provinces & Territories'),
+				'all_items' => __('All Provinces & Territories'),
+				'edit_item' => __('Edit Province/Territory'),
+				'update_item' => __('Update Province/Territory'),
+				'add_new_item' => __('Add New Province/Territory'),
+				'new_item_name' => __('New Province/Territory Name'),
+				'menu_name' => __('Provinces & Territories'),
+			),
+			'hierarchical' => true,
+			'show_ui' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'province'),
+			'show_in_rest' => true,
+		)
+	);
+
+	// Themes Taxonomy
+	register_taxonomy(
+		'thing_themes',
+		'thing_to_do',
+		array(
+			'label' => __('Themes'),
+			'labels' => array(
+				'name' => __('Themes'),
+				'singular_name' => __('Theme'),
+				'search_items' => __('Search Themes'),
+				'all_items' => __('All Themes'),
+				'edit_item' => __('Edit Theme'),
+				'update_item' => __('Update Theme'),
+				'add_new_item' => __('Add New Theme'),
+				'new_item_name' => __('New Theme Name'),
+				'menu_name' => __('Themes'),
+			),
+			'hierarchical' => true,
+			'show_ui' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'theme'),
+			'show_in_rest' => true,
+		)
+	);
+
+	// Seasons Taxonomy
+	register_taxonomy(
+		'seasons',
+		'thing_to_do',
+		array(
+			'label' => __('Seasons'),
+			'labels' => array(
+				'name' => __('Seasons'),
+				'singular_name' => __('Season'),
+				'search_items' => __('Search Seasons'),
+				'all_items' => __('All Seasons'),
+				'edit_item' => __('Edit Season'),
+				'update_item' => __('Update Season'),
+				'add_new_item' => __('Add New Season'),
+				'new_item_name' => __('New Season Name'),
+				'menu_name' => __('Seasons'),
+			),
+			'hierarchical' => false,
+			'show_ui' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array('slug' => 'season'),
+			'show_in_rest' => true,
+		)
+	);
+}
+add_action('init', 'create_thing_to_do_taxonomies', 0);
 
 
 
@@ -618,3 +720,27 @@ add_action('init', function () {
 		'delete_with_user' => false,
 	));
 });
+
+// Load ACF Archive Destination Fields
+// require_once get_template_directory() . '/acf-archive-destination-correct.php';
+require_once get_template_directory() . '/acf-archive-destination-correct.php';
+
+
+function custom_seo_articles_rewrite_rule()
+{
+	// 1. Luật rewrite để ánh xạ URL SEO: /things-to-do/articles/
+	// Tới: Page có slug là 'things-to-do-articles'
+	add_rewrite_rule(
+		'^things-to-do/articles/?$',
+		'index.php?pagename=things-to-do-articles',
+		'top'
+	);
+}
+add_action('init', 'custom_seo_articles_rewrite_rule');
+
+function add_articles_query_vars($vars)
+{
+	$vars[] = "articles_is_child"; // Thêm một query var để Page có thể sử dụng
+	return $vars;
+}
+add_filter('query_vars', 'add_articles_query_vars');
