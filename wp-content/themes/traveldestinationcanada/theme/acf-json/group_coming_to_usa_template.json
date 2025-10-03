@@ -1,0 +1,671 @@
+{
+    "key": "group_coming_to_usa_template",
+    "title": "Coming to USA - Template Fields",
+    "fields": [
+        {
+            "key": "field_hero_banner_coming",
+            "label": "Hero Banner",
+            "name": "hero_banner_coming",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Hero banner section at the top of the page",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_hero_title_coming",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Main heading for hero banner",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Coming to USA",
+                    "maxlength": "",
+                    "placeholder": "Enter hero title",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_hero_subtitle_coming",
+                    "label": "Sub Title",
+                    "name": "sub_title",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Description text below the title",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "Enter description",
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_hero_image_coming",
+                    "label": "Background Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Hero banner background image (recommended: 1920x800px)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "preview_size": "medium"
+                }
+            ]
+        },
+        {
+            "key": "field_intro_section_coming",
+            "label": "Introduction Section",
+            "name": "intro_section_coming",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Content section displayed after breadcrumb (basic-content-top)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_intro_title_coming",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "New Canada Strong Pass!",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_intro_subtitle_coming",
+                    "label": "Subtitle",
+                    "name": "sub_title",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Rich text subtitle (can use HTML)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                },
+                {
+                    "key": "field_intro_content_coming",
+                    "label": "Content",
+                    "name": "content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Main content text",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                },
+                {
+                    "key": "field_intro_button_coming",
+                    "label": "Button",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Call-to-action button",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                }
+            ]
+        },
+        {
+            "key": "field_sections_coming",
+            "label": "Content Sections",
+            "name": "sections",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add multiple content sections with different layouts",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_section_title_coming",
+            "button_label": "Add Section",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_section_title_coming",
+                    "label": "Section Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Title for this section (will also generate anchor slug)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Enter section title",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_sections_coming"
+                },
+                {
+                    "key": "field_section_layout_coming",
+                    "label": "Layout Type",
+                    "name": "layout",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Choose the layout style for this section",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "basic-content": "Basic Content (Image Left, Text Right - 1:2 columns)",
+                        "basic-content-largeImage": "Basic Content Large Image (Text Left, Large Image Right - 1:2 columns)",
+                        "basic-content-two-column": "Two Column Content (Text Left, Text Right)",
+                        "basic-grid-content": "Grid Content (2x2 Grid with Icons)"
+                    },
+                    "default_value": "basic-content",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_sections_coming"
+                },
+                {
+                    "key": "field_content_basic_layout_coming",
+                    "label": "Basic Content Layout",
+                    "name": "content_basic_layout",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "Content for Basic layouts (basic-content or basic-content-largeImage)",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_section_layout_coming",
+                                "operator": "==",
+                                "value": "basic-content"
+                            }
+                        ],
+                        [
+                            {
+                                "field": "field_section_layout_coming",
+                                "operator": "==",
+                                "value": "basic-content-largeImage"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_basic_subtitle_coming",
+                            "label": "Subtitle",
+                            "name": "sub_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_basic_content_coming",
+                            "label": "Content",
+                            "name": "content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_basic_image_coming",
+                            "label": "Image",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Image for basic-content: 600x600px | basic-content-largeImage: 1200x800px",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "jpg,jpeg,png,webp,svg",
+                            "preview_size": "medium"
+                        }
+                    ],
+                    "parent_repeater": "field_sections_coming"
+                },
+                {
+                    "key": "field_content_2_column_layout_coming",
+                    "label": "Two Column Content Layout",
+                    "name": "content_2_column_layout",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "Content for two column text layout",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_section_layout_coming",
+                                "operator": "==",
+                                "value": "basic-content-two-column"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_2col_subtitle_coming",
+                            "label": "Subtitle",
+                            "name": "sub_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_2col_content_left_coming",
+                            "label": "Content Left Column",
+                            "name": "content_left",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_2col_content_right_coming",
+                            "label": "Content Right Column",
+                            "name": "content_right",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "parent_repeater": "field_sections_coming"
+                },
+                {
+                    "key": "field_content_grid_layout_coming",
+                    "label": "Grid Content Layout",
+                    "name": "content_grid_layout",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Add grid items (2x2 layout)",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_section_layout_coming",
+                                "operator": "==",
+                                "value": "basic-grid-content"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 4,
+                    "collapsed": "field_grid_item_title_coming",
+                    "button_label": "Add Grid Item",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_grid_item_title_coming",
+                            "label": "Title",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_content_grid_layout_coming"
+                        },
+                        {
+                            "key": "field_grid_item_subtitle_coming",
+                            "label": "Subtitle",
+                            "name": "sub_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_content_grid_layout_coming"
+                        },
+                        {
+                            "key": "field_grid_item_image_coming",
+                            "label": "Icon\/Image",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Square icon image (recommended: 200x200px)",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "jpg,jpeg,png,webp,svg",
+                            "preview_size": "thumbnail",
+                            "parent_repeater": "field_content_grid_layout_coming"
+                        },
+                        {
+                            "key": "field_grid_item_content_coming",
+                            "label": "Content",
+                            "name": "content",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "basic",
+                            "media_upload": 0,
+                            "delay": 0,
+                            "parent_repeater": "field_content_grid_layout_coming"
+                        }
+                    ],
+                    "parent_repeater": "field_sections_coming"
+                }
+            ]
+        },
+        {
+            "key": "field_bottom_cta_coming",
+            "label": "Bottom Call-to-Action",
+            "name": "bottom_cta_coming",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Final CTA section at the bottom of the page",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_bottom_cta_title_coming",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Coming to USA",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_bottom_cta_content_coming",
+                    "label": "Content",
+                    "name": "content",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_bottom_cta_button_coming",
+                    "label": "Button",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-parts\/coming-to-usa.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "Fields for Coming to USA page template with flexible content sections",
+    "show_in_rest": 0,
+    "modified": 1759516754
+}

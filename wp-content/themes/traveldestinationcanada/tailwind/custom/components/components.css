@@ -219,6 +219,9 @@ nav.rank-math-breadcrumb .separator {
 	margin: 0 8px;
 	color: var(--color-text);
 }
+nav.rank-math-breadcrumb > * {
+		font-size: 14px;
+	}
 /* Trạng thái mặc định của header */
 .site-header {
 	position: fixed;
@@ -423,8 +426,22 @@ h6 {
 #global {
 	height: 80vh;
 }
-
-
+.templates img {
+	@apply mx-auto;
+}
+.templates > h3 {
+	@apply mb-3 last:mb-0;
+    margin-block-end: 12px !important;
+}
+.templates ul {
+	@apply ml-[1em] list-disc mb-3 last:mb-0;
+}
+.templates ol {
+	@apply ml-[1em] list-decimal mb-3 last:mb-0;
+}
+.templates li {
+	@apply mb-4 ml-4 pl-1 last:mb-0;
+}
 .section_c {
 	@apply relative z-0 text-center my-16 lg:my-20
 }
@@ -512,6 +529,9 @@ h6 {
 @media screen and (min-width: 768px) {
 	.wrapper_slide {
 		padding-left: 64px;
+	}
+	nav.rank-math-breadcrumb > * {
+		font-size: 16px;
 	}
 }
 

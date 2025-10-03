@@ -40,8 +40,18 @@
 }
 
 
+@font-face {
+	font-family: 'Canada';
+	src: url("/wp-content/themes/traveldestinationcanada/tailwind/custom/fonts/Canada/Canada-Bold.1f3ff88f.woff2") format("woff");
+	font-weight: 600;
+	font-style: normal;
+}
+
 
 /* add main fonts */
 * {
 	font-family: 'Suisse Int', sans-serif;
+}
+.title_font_canada {
+		font-family: 'Canada', sans-serif;
 }

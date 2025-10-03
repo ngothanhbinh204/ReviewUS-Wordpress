@@ -26,7 +26,7 @@ $slides = $args['slides'] ?? [];
                                 <div
                                     class="text-center lg:col-start-3 3xl:col-start-4 sm:px-10 text-shadow 3xl:col-span-6 col-span-2 md:col-span-12 lg:col-span-8 lg:px-0">
                                     <h1
-                                        class="break-words text-[11vw] font-bold leading-none sm:text-[50px] lg:text-[75px] 2xl:text-[90px] font-alt text-white">
+                                        class="break-words title_font_canada text-[11vw] font-bold leading-none sm:text-[50px] lg:text-[75px] 2xl:text-[90px] font-alt text-white">
                                         <?= esc_html($slide['title']) ?></h1>
                                     <div class="text-base-banner">
                                         <p class="mb-3 last:mb-0 empty:hidden"> <?= esc_html($slide['sub_title']) ?></p>

@@ -22,7 +22,7 @@ $section = $args['section'] ?? [];
         </div>
         <?php endif; ?>
 
-        <div class="grid md:grid-cols-2 md:gap-8">
+        <div class="grid md:grid-cols-2 gap-4 md:gap-8">
             <?php if (!empty($section['content_left'])): ?>
             <div class="text-base leading-6 xl:text-lg xl:leading-7">
                 <?= $section['content_left'] ?>

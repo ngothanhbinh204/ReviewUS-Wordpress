@@ -43,7 +43,8 @@ $section = $args['section'] ?? [];
             <?php if (!empty($section['image']['url'])): ?>
             <div class="relative mb-4 overflow-hidden last:mb-0 xl:col-span-2 order-2">
                 <div>
-                    <img src="<?= esc_url($section['image']['url']) ?>" alt="<?= esc_attr($section['title']) ?>">
+                    <img class=" h-auto mx-auto" src="<?= esc_url($section['image']['url']) ?>"
+                        alt="<?= esc_attr($section['title']) ?>">
                 </div>
             </div>
             <?php endif; ?>
