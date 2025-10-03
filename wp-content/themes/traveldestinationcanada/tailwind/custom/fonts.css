@@ -52,6 +52,8 @@
 * {
 	font-family: 'Suisse Int', sans-serif;
 }
-.title_font_canada {
+.title_font_canada,
+.section_sliderbanner h1,
+.c-herobanner h1{
 		font-family: 'Canada', sans-serif;
 }

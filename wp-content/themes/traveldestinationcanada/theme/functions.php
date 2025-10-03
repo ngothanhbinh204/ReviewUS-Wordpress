@@ -434,30 +434,30 @@ function handle_filter_things_to_do()
 				$thumbnail = '/wp-content/uploads/2025/09/banner_section.webp';
 			}
 ?>
-			<div class="card relative h-full card_thing">
-				<a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
-					<div class="relative">
-						<figure class="relative aspect-square has_effect">
-							<?php if ($thumbnail): ?>
-								<img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full w-full"
-									src="<?php echo esc_url($thumbnail); ?>">
-							<?php endif; ?>
+<div class="card relative h-full card_thing">
+    <a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
+        <div class="relative">
+            <figure class="relative aspect-square has_effect">
+                <?php if ($thumbnail): ?>
+                <img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full w-full"
+                    src="<?php echo esc_url($thumbnail); ?>">
+                <?php endif; ?>
 
-							<figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
-								Destination BC</figcaption>
-						</figure>
-					</div>
-				</a>
-				<div class="mb-4 last:mb-0">
-					<h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
-						<a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
-							<?php the_title(); ?></a>
-					</h3>
-					<!-- Display Content excerpt -->
-					<!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
+                <figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
+                    Destination BC</figcaption>
+            </figure>
+        </div>
+    </a>
+    <div class="mb-4 last:mb-0">
+        <h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
+            <a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
+                <?php the_title(); ?></a>
+        </h3>
+        <!-- Display Content excerpt -->
+        <!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
 
-				</div>
-			</div>
+    </div>
+</div>
 <?php
 		}
 	} else {
@@ -740,7 +740,23 @@ add_action('init', 'custom_seo_articles_rewrite_rule');
 
 function add_articles_query_vars($vars)
 {
-	$vars[] = "articles_is_child"; // Thêm một query var để Page có thể sử dụng
+	$vars[] = "articles_is_child";
 	return $vars;
 }
 add_filter('query_vars', 'add_articles_query_vars');
+
+
+// function custom_pages_featured_image_support()
+// {
+// 	add_post_type_support('page', 'thumbnail');
+// }
+// add_action('init', 'custom_pages_featured_image_support');
+// add_theme_support('post-thumbnails');
+function custom_theme_setup()
+{
+	add_theme_support('post-thumbnails', ['post', 'page']);
+}
+add_action('after_setup_theme', 'custom_theme_setup');
+add_action('init', function () {
+	add_post_type_support('page', 'thumbnail');
+});

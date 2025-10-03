@@ -429,8 +429,7 @@ h6 {
 .templates img {
 	@apply mx-auto;
 }
-.templates > h3 {
-	@apply mb-3 last:mb-0;
+.templates h3 {
     margin-block-end: 12px !important;
 }
 .templates ul {

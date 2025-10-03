@@ -1,0 +1,358 @@
+{
+    "key": "group_plan_your_trip_template",
+    "title": "Plan Your Trip - Template Fields",
+    "fields": [
+        {
+            "key": "field_banner_images_plan_trip",
+            "label": "Banner Images",
+            "name": "banner_images",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Upload one or more banner images for the slider (recommended: 1920x800px)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": 1,
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp,svg",
+            "insert": "append",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_intro_section_plan_trip",
+            "label": "Introduction Section",
+            "name": "intro_section_plan_trip",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Introduction content displayed after breadcrumb",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_intro_title_plan_trip",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Main heading for intro section",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Enter intro title",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_intro_content_plan_trip",
+                    "label": "Content",
+                    "name": "content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Introduction text content",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                }
+            ]
+        },
+        {
+            "key": "field_featured_pages_plan_trip",
+            "label": "Featured Pages",
+            "name": "featured_pages",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Select 2 pages to feature (e.g., Coming to Canada, Getting Around)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 2,
+            "collapsed": "field_featured_page_select_plan_trip",
+            "button_label": "Add Page",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_featured_page_select_plan_trip",
+                    "label": "Select Page",
+                    "name": "page",
+                    "aria-label": "",
+                    "type": "page_link",
+                    "instructions": "Choose a page to feature",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "page"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "allow_archives": 0,
+                    "multiple": 0,
+                    "parent_repeater": "field_featured_pages_plan_trip"
+                },
+                {
+                    "key": "field_featured_page_image_plan_trip",
+                    "label": "Custom Image",
+                    "name": "custom_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Optional: Override page's featured image (recommended: 1200x900px, aspect 4:3)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp,svg",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_featured_pages_plan_trip"
+                },
+                {
+                    "key": "field_featured_page_excerpt_plan_trip",
+                    "label": "Custom Excerpt",
+                    "name": "custom_excerpt",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Optional: Override page's excerpt",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_featured_pages_plan_trip"
+                },
+                {
+                    "key": "field_featured_page_button_text_plan_trip",
+                    "label": "Button Text",
+                    "name": "button_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Custom button text (default: \"Explore [Page Title]\")",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Explore Page",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_featured_pages_plan_trip"
+                }
+            ]
+        },
+        {
+            "key": "field_bottom_cta_plan_trip",
+            "label": "Bottom Call-to-Action Section",
+            "name": "bottom_cta_section",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Large CTA section at the bottom (Itineraries section)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_bottom_cta_title_plan_trip",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Large heading text",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Itineraries",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_bottom_cta_subtitle_plan_trip",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Bold subtitle below the title",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_bottom_cta_content_plan_trip",
+                    "label": "Content",
+                    "name": "content",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Description text",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                },
+                {
+                    "key": "field_bottom_cta_button_plan_trip",
+                    "label": "Button",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Call-to-action button link",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_bottom_cta_bg_image_plan_trip",
+                    "label": "Background Image",
+                    "name": "background_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Background image for the CTA section (recommended: 1920x1080px)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp,svg",
+                    "preview_size": "medium"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-plan-your-trip.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "Fields for Plan Your Trip page template",
+    "show_in_rest": 0,
+    "modified": 1759523784
+}
