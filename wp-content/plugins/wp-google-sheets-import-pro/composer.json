@@ -1,0 +1,15 @@
+{
+    "name": "yourname/wp-google-sheets-import-pro",
+    "description": "Import WordPress posts from Google Sheets with n8n webhook integration",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.0",
+        "google/apiclient": "^2.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPGSIP\\": "src/"
+        }
+    }
+}

@@ -159,6 +159,12 @@ function _tw_scripts()
 {
 	wp_enqueue_style('_tw-style', get_stylesheet_uri(), array(), _TW_VERSION);
 	wp_enqueue_style('header-menu-style', get_template_directory_uri() . '/css/header-menu.css', array(), _TW_VERSION);
+
+	// Enqueue search results styles on search page
+	if (is_search()) {
+		wp_enqueue_style('search-results-style', get_template_directory_uri() . '/css/search-results.css', array(), _TW_VERSION);
+	}
+
 	wp_enqueue_script('jquery');
 
 	wp_enqueue_script('_tw-script', get_template_directory_uri() . '/js/script.min.js', array('jquery'), _TW_VERSION, true);
@@ -434,30 +440,30 @@ function handle_filter_things_to_do()
 				$thumbnail = '/wp-content/uploads/2025/09/banner_section.webp';
 			}
 ?>
-<div class="card relative h-full card_thing">
-    <a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
-        <div class="relative">
-            <figure class="relative aspect-square has_effect">
-                <?php if ($thumbnail): ?>
-                <img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full w-full"
-                    src="<?php echo esc_url($thumbnail); ?>">
-                <?php endif; ?>
+			<div class="card relative h-full card_thing">
+				<a class=" inset-0 mb-5 block overflow-hidden last:mb-0" href="#">
+					<div class="relative">
+						<figure class="relative aspect-square has_effect">
+							<?php if ($thumbnail): ?>
+								<img alt="" loading="lazy" decoding="async" class="object-cover anim--hover-image h-full w-full"
+									src="<?php echo esc_url($thumbnail); ?>">
+							<?php endif; ?>
 
-                <figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
-                    Destination BC</figcaption>
-            </figure>
-        </div>
-    </a>
-    <div class="mb-4 last:mb-0">
-        <h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
-            <a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
-                <?php the_title(); ?></a>
-        </h3>
-        <!-- Display Content excerpt -->
-        <!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
+							<figcaption class="absolute bottom-0 right-0 px-4 py-2 text-xs text-white">
+								Destination BC</figcaption>
+						</figure>
+					</div>
+				</a>
+				<div class="mb-4 last:mb-0">
+					<h3 class="break-words text-[22px]  font-bold leading-tight lg:text-[24px] 2xl:text-[28px]">
+						<a class="primary2 group transition-all duration-150 ease-linear" href="<?php the_permalink(); ?>">
+							<?php the_title(); ?></a>
+					</h3>
+					<!-- Display Content excerpt -->
+					<!-- <div class="excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></div> -->
 
-    </div>
-</div>
+				</div>
+			</div>
 <?php
 		}
 	} else {
@@ -744,6 +750,42 @@ function add_articles_query_vars($vars)
 	return $vars;
 }
 add_filter('query_vars', 'add_articles_query_vars');
+
+/**
+ * Redirect taxonomy archives to filter page with query parameters
+ * Redirects /theme/history-heritage/ to /things-to-do/articles/?themes=history-heritage
+ */
+function redirect_taxonomy_to_filter_page()
+{
+	// Only run on taxonomy archives
+	if (!is_tax()) {
+		return;
+	}
+
+	$queried_object = get_queried_object();
+
+	// Check if this is one of our taxonomies that should redirect
+	$redirect_taxonomies = array(
+		'thing_themes' => 'themes',           // taxonomy => query param name
+		'provinces_territories' => 'provinces',
+		'seasons' => 'seasons',
+	);
+
+	if (isset($redirect_taxonomies[$queried_object->taxonomy])) {
+		$taxonomy_name = $queried_object->taxonomy;
+		$term_slug = $queried_object->slug;
+		$query_param = $redirect_taxonomies[$taxonomy_name];
+
+		// Build redirect URL
+		$redirect_url = home_url('/things-to-do/articles/');
+		$redirect_url = add_query_arg($query_param, $term_slug, $redirect_url);
+
+		// Perform 301 redirect
+		wp_redirect($redirect_url, 301);
+		exit;
+	}
+}
+add_action('template_redirect', 'redirect_taxonomy_to_filter_page');
 
 
 // function custom_pages_featured_image_support()

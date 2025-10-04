@@ -1,5 +1,6 @@
 module.exports = {
-	content: ['./**/*.php', './**/*.js', './theme/**/*.php'],
+	content: [ "./wp-content/themes/your-theme/**/*.php",
+  "./wp-content/themes/your-theme/**/*.js"],
 	safelist: [
 		'text-primary2',
 		'bg-primary2',

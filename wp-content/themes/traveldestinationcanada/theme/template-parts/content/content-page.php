@@ -46,7 +46,8 @@
     </header><!-- .entry-header -->
 
 
-    <div <?php _tw_content_class('c-container px-4 md:px-16 2xl:px-20 3xl:px-0 max-w-screen-xl xl:mx-auto'); ?>>
+    <div
+        <?php _tw_content_class('c-container px-4 md:px-16 2xl:px-20 3xl:px-0 max-w-screen-xl xl:mx-auto relative z-0 text-left my-16 lg:my-24'); ?>>
         <?php
 		the_content();
 

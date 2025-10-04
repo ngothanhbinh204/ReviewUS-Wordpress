@@ -1,12 +1,16 @@
 /* Header Mega Menu Styles with Click Events and Tabs */
 
-/* Mega Menu Container */
+/* Mega Menu Container - Fixed full width below header */
 .mega-menu {
+    position: fixed !important;
     left: 0 !important;
     right: 0 !important;
+    top: 64px !important; /* Height of header (h-16 = 4rem = 64px) */
     width: 100vw !important;
-    margin-left: calc(-50vw + 50%);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
     animation: megaMenuSlideDown 0.3s ease-out;
+    z-index: 40 !important;
 }
 
 .mega-menu.hidden {
@@ -106,7 +110,7 @@
 }
 
 .menu-card:hover {
-    transform: translateY(-4px);
+    /* transform: translateY(-4px); */
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
@@ -158,7 +162,8 @@
 
 /* Search Overlay Animation */
 #searchOverlay {
-    backdrop-filter: blur(4px);
+	z-index: -1;
+    /* backdrop-filter: blur(4px); */
     animation: fadeIn 0.3s ease-out;
 }
 

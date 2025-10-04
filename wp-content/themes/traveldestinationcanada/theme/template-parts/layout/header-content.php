@@ -46,9 +46,9 @@
 	</nav> -->
     <!-- New Header with Mega Menu -->
     <div id="main-header" class="site-header bg-primary shadow-lg fixed top-0 z-50 w-full transition-transform">
-        <nav class="header_main relative">
+        <nav class="header_main relative py-2">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
+                <div class="flex justify-between items-center h-16 gap-6">
                     <!-- Logo -->
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
@@ -57,7 +57,7 @@
 								$custom_logo_id = get_theme_mod('custom_logo');
 								if ($custom_logo_id) {
 									$logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-									echo '<img class="h-8 w-auto" src="' . esc_url($logo[0]) . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
+									echo '<img class="h-14 w-auto" src="' . esc_url($logo[0]) . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
 								} else {
 									// Fallback to site name if no logo
 									echo '<span class="text-white text-xl font-bold">' . esc_html(get_bloginfo('name')) . '</span>';
@@ -68,7 +68,7 @@
                     </div>
 
                     <!-- Desktop Main Menu -->
-                    <div class="hidden lg:block">
+                    <div class="hidden lg:block mr-auto">
                         <div class="flex items-center space-x-1">
                             <?php
 							wp_nav_menu(array(
@@ -93,8 +93,18 @@
                         </button>
                     </div>
 
-                    <!-- Mobile menu button -->
-                    <div class="lg:hidden">
+                    <!-- Mobile actions (Search + Menu) -->
+                    <div class="lg:hidden flex items-center space-x-2">
+                        <!-- Mobile Search Button -->
+                        <button id="mobileSearchBtn"
+                            class="mobile-search-btn text-white hover:text-gray-200 p-2 rounded-md transition-colors duration-200">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+
+                        <!-- Mobile Menu Button -->
                         <button id="mobileMenuBtn"
                             class="text-white hover:text-gray-200 p-2 rounded-md transition-colors duration-200">
                             <svg id="menuIcon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +122,8 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div id="mobileMenu" class="lg:hidden bg-primary border-t border-red-600 hidden">
+            <div id="mobileMenu"
+                class="lg:hidden bg-white fixed inset-0 top-[80px] h-screen border-t border-red-600 overflow-y-auto hidden">
                 <div class="px-4 py-4 space-y-1">
                     <?php
 					wp_nav_menu(array(
@@ -123,28 +134,18 @@
 						'depth' => 3,
 					));
 					?>
-
-                    <!-- Mobile Search -->
-                    <div class="pt-4 border-t border-red-600">
-                        <button
-                            class="text-white hover:text-gray-200 flex items-center w-full px-3 py-2 text-sm font-medium">
-                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            Search
-                        </button>
-                    </div>
                 </div>
             </div>
         </nav>
 
         <!-- Search Overlay -->
-        <div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden">
+        <div id="searchOverlay" class="fixed inset-0 hidden">
             <div class="flex items-start justify-center pt-20">
-                <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl mx-4">
+                <div class="bg-white rounded-lg shadow-xl p-6 lg:py-16 w-full max-w-full lg:px-20">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-900">Search</h3>
+                        <h3
+                            class="break-words text-[26px] font-bold leading-tight lg:text-[32px] 2xl:text-[36px] text-primary mb-2">
+                            Search this site...</h3>
                         <button id="closeSearch" class="text-gray-400 hover:text-gray-600">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

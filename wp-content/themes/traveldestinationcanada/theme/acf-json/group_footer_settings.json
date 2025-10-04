@@ -1,0 +1,452 @@
+{
+    "key": "group_footer_settings",
+    "title": "Footer Settings",
+    "fields": [
+        {
+            "key": "field_footer_logo",
+            "label": "Footer Logo",
+            "name": "footer_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Upload footer logo (Recommended: 200x200px, SVG or WebP)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,svg,webp"
+        },
+        {
+            "key": "field_footer_top_links",
+            "label": "Footer Top Links",
+            "name": "footer_top_links",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Links hiển thị ở phần top footer (Business Events, Corporate, Media, Trade, Visual Library)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_show_top_links",
+                    "label": "Show Top Links Section",
+                    "name": "show_top_links",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Yes",
+                    "ui_off_text": "No"
+                },
+                {
+                    "key": "field_top_links_list",
+                    "label": "Top Links",
+                    "name": "top_links_list",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Add links for top footer section",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_show_top_links",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_top_link_text",
+                    "min": 0,
+                    "max": 10,
+                    "layout": "table",
+                    "button_label": "Add Link",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_top_link_text",
+                            "label": "Link Text",
+                            "name": "link_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "e.g., Business Events",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_top_links_list"
+                        },
+                        {
+                            "key": "field_top_link_url",
+                            "label": "Link URL",
+                            "name": "link_url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "https:\/\/example.com",
+                            "parent_repeater": "field_top_links_list"
+                        },
+                        {
+                            "key": "field_top_link_target",
+                            "label": "Open in New Tab",
+                            "name": "link_target",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "ui": 1,
+                            "ui_on_text": "Yes",
+                            "ui_off_text": "No",
+                            "parent_repeater": "field_top_links_list"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_footer_international_websites",
+            "label": "International Websites Switcher",
+            "name": "footer_international_websites",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Settings for international website switcher dropdown",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_show_website_switcher",
+                    "label": "Show Website Switcher",
+                    "name": "show_website_switcher",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Yes",
+                    "ui_off_text": "No"
+                },
+                {
+                    "key": "field_switcher_label",
+                    "label": "Switcher Label Text",
+                    "name": "switcher_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_show_website_switcher",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Switch to traveller website from:",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_switcher_placeholder",
+                    "label": "Dropdown Placeholder",
+                    "name": "switcher_placeholder",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_show_website_switcher",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Select...",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_international_websites",
+                    "label": "International Websites",
+                    "name": "international_websites",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Add international website options",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_show_website_switcher",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_website_name",
+                    "min": 0,
+                    "max": 20,
+                    "layout": "table",
+                    "button_label": "Add Website",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_website_name",
+                            "label": "Country\/Region Name",
+                            "name": "website_name",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "e.g., Canada (English)",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_international_websites"
+                        },
+                        {
+                            "key": "field_website_url",
+                            "label": "Website URL",
+                            "name": "website_url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "https:\/\/travel.destinationcanada.com\/en-ca",
+                            "parent_repeater": "field_international_websites"
+                        },
+                        {
+                            "key": "field_website_flag",
+                            "label": "Flag Icon (Optional)",
+                            "name": "website_flag",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Upload country flag icon",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "url",
+                            "preview_size": "thumbnail",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "jpg,jpeg,png,svg,webp",
+                            "parent_repeater": "field_international_websites"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_footer_bottom_section",
+            "label": "Footer Bottom Section",
+            "name": "footer_bottom_section",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Copyright, official text, and Canada logo",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_footer_official_text",
+                    "label": "Official Site Text",
+                    "name": "official_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "An official site of Destination Canada 2025",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_footer_canada_logo",
+                    "label": "Canada Government Logo",
+                    "name": "canada_logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Upload Canada government logo (Recommended: 145x35px)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,svg,webp"
+                },
+                {
+                    "key": "field_footer_cookies_text",
+                    "label": "Cookies Settings Button Text",
+                    "name": "cookies_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Cookies Settings",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "options"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Footer settings including logo, links, social media, international websites switcher, and bottom section content",
+    "show_in_rest": 0,
+    "modified": 1759559897
+}

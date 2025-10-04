@@ -970,7 +970,10 @@ a.button_primary>span {
 	/* grid-template-columns: repeat(3, minmax(0, 1fr)); */
 	gap: 2rem;
 }
-
+.page.hentry {
+	padding-top: 32px;
+	padding-bottom: 32px;
+}
 #posts-container .loading {
 	grid-column: 1 / -1;
 	text-align: center;
