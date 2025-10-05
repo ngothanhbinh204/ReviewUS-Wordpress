@@ -69,7 +69,7 @@ class WPGSIP_Activator
         // Set default options
         $default_options = array(
             'sheet_id' => '',
-            'sheet_range' => 'Sheet1!A2:F',
+            'sheet_range' => 'Post1!A2:I',
             'n8n_webhook_url' => '',
             'n8n_enabled' => false,
             'n8n_wait_time' => 20,

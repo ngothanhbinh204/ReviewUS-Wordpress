@@ -74,13 +74,16 @@ $next_run = $cron->get_next_run();
         <div class="wpgsip-section">
             <h2><?php esc_html_e('Quick Actions', 'wp-gs-import-pro'); ?></h2>
             <div class="wpgsip-quick-actions">
-                <a href="<?php echo admin_url('admin.php?page=wpgsip-import'); ?>" class="button button-primary button-large">
+                <a href="<?php echo admin_url('admin.php?page=wpgsip-import'); ?>"
+                    class="button button-primary button-large">
                     <?php esc_html_e('Start Import', 'wp-gs-import-pro'); ?>
                 </a>
-                <a href="<?php echo admin_url('admin.php?page=wpgsip-settings'); ?>" class="button button-secondary button-large">
+                <a href="<?php echo admin_url('admin.php?page=wpgsip-settings'); ?>"
+                    class="button button-secondary button-large">
                     <?php esc_html_e('Settings', 'wp-gs-import-pro'); ?>
                 </a>
-                <a href="<?php echo admin_url('admin.php?page=wpgsip-posts'); ?>" class="button button-secondary button-large">
+                <a href="<?php echo admin_url('admin.php?page=wpgsip-posts'); ?>"
+                    class="button button-secondary button-large">
                     <?php esc_html_e('View Imported Posts', 'wp-gs-import-pro'); ?>
                 </a>
             </div>
@@ -88,56 +91,56 @@ $next_run = $cron->get_next_run();
 
         <!-- Scheduled Import Info -->
         <?php if ($settings->get('auto_import_enabled')): ?>
-            <div class="wpgsip-section">
-                <h2><?php esc_html_e('Scheduled Import', 'wp-gs-import-pro'); ?></h2>
-                <p>
-                    <?php if ($next_run): ?>
-                        <?php printf(
+        <div class="wpgsip-section">
+            <h2><?php esc_html_e('Scheduled Import', 'wp-gs-import-pro'); ?></h2>
+            <p>
+                <?php if ($next_run): ?>
+                <?php printf(
                             esc_html__('Next scheduled import: %s', 'wp-gs-import-pro'),
                             '<strong>' . esc_html($next_run) . '</strong>'
                         ); ?>
-                    <?php else: ?>
-                        <?php esc_html_e('No scheduled import configured.', 'wp-gs-import-pro'); ?>
-                    <?php endif; ?>
-                </p>
-            </div>
+                <?php else: ?>
+                <?php esc_html_e('No scheduled import configured.', 'wp-gs-import-pro'); ?>
+                <?php endif; ?>
+            </p>
+        </div>
         <?php endif; ?>
 
         <!-- Recent Activity -->
         <div class="wpgsip-section">
             <h2><?php esc_html_e('Recent Activity', 'wp-gs-import-pro'); ?></h2>
             <?php if (!empty($recent_logs)): ?>
-                <table class="wp-list-table widefat fixed striped">
-                    <thead>
-                        <tr>
-                            <th><?php esc_html_e('Date', 'wp-gs-import-pro'); ?></th>
-                            <th><?php esc_html_e('Action', 'wp-gs-import-pro'); ?></th>
-                            <th><?php esc_html_e('Status', 'wp-gs-import-pro'); ?></th>
-                            <th><?php esc_html_e('Message', 'wp-gs-import-pro'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($recent_logs as $log): ?>
-                            <tr>
-                                <td><?php echo esc_html($log->created_at); ?></td>
-                                <td><?php echo esc_html($log->action); ?></td>
-                                <td>
-                                    <span class="wpgsip-status-badge wpgsip-status-<?php echo esc_attr($log->status); ?>">
-                                        <?php echo esc_html($log->status); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo esc_html($log->message); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <p>
-                    <a href="<?php echo admin_url('admin.php?page=wpgsip-logs'); ?>">
-                        <?php esc_html_e('View All Logs →', 'wp-gs-import-pro'); ?>
-                    </a>
-                </p>
+            <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th><?php esc_html_e('Date', 'wp-gs-import-pro'); ?></th>
+                        <th><?php esc_html_e('Action', 'wp-gs-import-pro'); ?></th>
+                        <th><?php esc_html_e('Status', 'wp-gs-import-pro'); ?></th>
+                        <th><?php esc_html_e('Message', 'wp-gs-import-pro'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($recent_logs as $log): ?>
+                    <tr>
+                        <td><?php echo esc_html($log->created_at); ?></td>
+                        <td><?php echo esc_html($log->action); ?></td>
+                        <td>
+                            <span class="wpgsip-status-badge wpgsip-status-<?php echo esc_attr($log->status); ?>">
+                                <?php echo esc_html($log->status); ?>
+                            </span>
+                        </td>
+                        <td><?php echo esc_html($log->message); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <p>
+                <a href="<?php echo admin_url('admin.php?page=wpgsip-logs'); ?>">
+                    <?php esc_html_e('View All Logs →', 'wp-gs-import-pro'); ?>
+                </a>
+            </p>
             <?php else: ?>
-                <p><?php esc_html_e('No recent activity.', 'wp-gs-import-pro'); ?></p>
+            <p><?php esc_html_e('No recent activity.', 'wp-gs-import-pro'); ?></p>
             <?php endif; ?>
         </div>
 
@@ -150,27 +153,27 @@ $next_run = $cron->get_next_run();
 </div>
 
 <script>
-    jQuery(document).ready(function($) {
-        // Simple activity chart using canvas
-        var canvas = document.getElementById('wpgsip-activity-chart');
-        if (canvas) {
-            var ctx = canvas.getContext('2d');
-            var data = <?php echo json_encode(array_reverse($stats['by_date'])); ?>;
+jQuery(document).ready(function($) {
+    // Simple activity chart using canvas
+    var canvas = document.getElementById('wpgsip-activity-chart');
+    if (canvas) {
+        var ctx = canvas.getContext('2d');
+        var data = <?php echo json_encode(array_reverse($stats['by_date'])); ?>;
 
-            // Simple bar chart
-            var maxCount = Math.max(...data.map(d => d.count));
-            var barWidth = canvas.width / data.length;
+        // Simple bar chart
+        var maxCount = Math.max(...data.map(d => d.count));
+        var barWidth = canvas.width / data.length;
 
-            data.forEach(function(item, index) {
-                var barHeight = (item.count / maxCount) * (canvas.height - 20);
-                ctx.fillStyle = '#2271b1';
-                ctx.fillRect(index * barWidth, canvas.height - barHeight, barWidth - 2, barHeight);
+        data.forEach(function(item, index) {
+            var barHeight = (item.count / maxCount) * (canvas.height - 20);
+            ctx.fillStyle = '#2271b1';
+            ctx.fillRect(index * barWidth, canvas.height - barHeight, barWidth - 2, barHeight);
 
-                // Draw count
-                ctx.fillStyle = '#000';
-                ctx.font = '10px Arial';
-                ctx.fillText(item.count, index * barWidth + 5, canvas.height - barHeight - 5);
-            });
-        }
-    });
+            // Draw count
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Arial';
+            ctx.fillText(item.count, index * barWidth + 5, canvas.height - barHeight - 5);
+        });
+    }
+});
 </script>

@@ -1,0 +1,8 @@
+[2025-10-05 20:54:36 : INFO] - Re_Smush_It_Task server status: Online 
+[2025-10-05 20:54:36 : INFO] - Processing task with ID : 1, and type 'smush' 
+[2025-10-05 20:54:36 : INFO] - Re_Smush_It_Task - attachment ID : 362, started on : October 05, 2025 08:54:36 
+[2025-10-05 20:54:36 : INFO] - File: money.jpg, Compression quality: 92 
+[2025-10-05 20:54:39 : INFO] - Backing up the original image - 2025/10/money-updraft-pre-smush-original.jpg 
+[2025-10-05 20:54:43 : INFO] - There were no WebP conversion tools found on your server. 
+[2025-10-05 20:54:43 : INFO] - Successfully optimized the image - C:\Users\ngoba\Local Sites\reviewus\app\public/wp-content/uploads/2025/10/money.jpg.The file was compressed from 58.03 KB to 56.98 KB, saving 1.81 percent, using WP-Optimize 
+[2025-10-05 20:54:43 : INFO] - Completed processing task with ID : 1, and type 'smush' 

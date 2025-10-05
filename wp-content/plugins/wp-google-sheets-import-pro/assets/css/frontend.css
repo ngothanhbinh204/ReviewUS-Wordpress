@@ -1,0 +1,139 @@
+/* WP Google Sheets Import Pro - Frontend Styles */
+
+/* Table of Contents */
+.wpgsip-toc {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 30px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.wpgsip-toc h2 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    border-bottom: 2px solid #2271b1;
+    padding-bottom: 10px;
+}
+
+.wpgsip-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wpgsip-toc ul li {
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.wpgsip-toc ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #2271b1;
+    font-weight: bold;
+}
+
+.wpgsip-toc ul li a {
+    color: #2271b1;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.wpgsip-toc ul li a:hover {
+    color: #135e96;
+    padding-left: 5px;
+}
+
+/* Content Headings */
+.entry-content h1,
+.entry-content h2,
+.entry-content h3,
+.entry-content h4,
+.entry-content h5,
+.entry-content h6 {
+    scroll-margin-top: 100px; /* For smooth scroll with fixed headers */
+}
+
+/* Strong/Bold text from ** markdown */
+.entry-content strong {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Lists */
+.entry-content ul,
+.entry-content ol {
+    margin: 20px 0;
+    padding-left: 30px;
+}
+
+.entry-content ul li,
+.entry-content ol li {
+    margin: 10px 0;
+    line-height: 1.8;
+}
+
+/* Blockquotes */
+.entry-content blockquote {
+    border-left: 4px solid #2271b1;
+    margin: 25px 0;
+    padding: 20px 25px;
+    background: #f8f9fa;
+    font-style: italic;
+    color: #555;
+}
+
+.entry-content blockquote p {
+    margin: 0;
+}
+
+/* Code blocks */
+.entry-content code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 90%;
+    color: #d63384;
+}
+
+/* Links */
+.entry-content a {
+    color: #2271b1;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.entry-content a:hover {
+    color: #135e96;
+}
+
+/* Paragraphs */
+.entry-content p {
+    margin: 15px 0;
+    line-height: 1.8;
+    color: #333;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .wpgsip-toc {
+        padding: 20px 15px;
+    }
+    
+    .wpgsip-toc h2 {
+        font-size: 18px;
+    }
+    
+    .wpgsip-toc ul li a {
+        font-size: 14px;
+    }
+}

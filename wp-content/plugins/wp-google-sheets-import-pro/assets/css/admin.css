@@ -141,7 +141,7 @@
 
 /* Import Page */
 .wpgsip-import-page {
-    max-width: 1200px;
+    max-width: 100%;
 }
 
 #wpgsip-import-results {
@@ -234,4 +234,132 @@
 
 .wpgsip-mb-20 {
     margin-bottom: 20px;
+}
+
+/* Table of Contents (TOC) - Frontend Styles */
+.wpgsip-toc {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.wpgsip-toc h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.wpgsip-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wpgsip-toc ul li {
+    margin: 8px 0;
+    padding-left: 0;
+}
+
+.wpgsip-toc ul li a {
+    color: #2271b1;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.wpgsip-toc ul li a:hover {
+    color: #135e96;
+    text-decoration: underline;
+}
+
+/* Enhanced Import Styles */
+.wpgsip-preview-table .check-column {
+    width: 50px;
+    text-align: center;
+}
+
+.wpgsip-row-checkbox {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.wpgsip-action-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.wpgsip-action-create {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.wpgsip-action-update {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.wpgsip-taxonomy-select {
+    width: 100%;
+    max-width: 400px;
+    min-height: 100px;
+}
+
+#wpgsip-selected-count {
+    color: #2271b1;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#wpgsip-post-type {
+    max-width: 300px;
+}
+
+.wpgsip-preview-table thead th {
+    background: #f0f0f1;
+    font-weight: 600;
+}
+
+.wpgsip-preview-table tbody tr:hover {
+    background: #f6f7f7;
+}
+
+.wpgsip-preview-table small {
+    color: #646970;
+    font-style: italic;
+}
+
+/* Row taxonomy dropdowns */
+.wpgsip-row-taxonomy-select {
+    width: 100%;
+    max-width: 200px;
+    height: 60px;
+    font-size: 12px;
+    padding: 4px;
+    border: 1px solid #8c8f94;
+    border-radius: 3px;
+}
+
+.wpgsip-row-taxonomy-select:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: 2px solid transparent;
+}
+
+.wpgsip-preview-table td {
+    vertical-align: top;
+    padding: 10px;
+}
+
+.wpgsip-preview-table .check-column {
+    width: 50px;
+    text-align: center;
 }

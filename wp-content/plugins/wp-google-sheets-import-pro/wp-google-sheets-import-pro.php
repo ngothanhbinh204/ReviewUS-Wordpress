@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Plugin Name: WP Google Sheets Import Pro
+ * Plugin Name: WP Google Sheet Import ReviewUS;
+
  * Plugin URI: https://example.com/wp-google-sheets-import-pro
  * Description: Import and manage WordPress posts from Google Sheets with n8n webhook integration. Designed for multi-tenant scalability.
  * Version: 1.0.0
@@ -29,17 +30,21 @@ define('WPGSIP_PLUGIN_BASENAME', plugin_basename(__FILE__));
 // Autoloader
 require_once WPGSIP_PLUGIN_DIR . 'vendor/autoload.php';
 
-// Core classes
+// Core classes - Load dependencies first
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-activator.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-deactivator.php';
-require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-core.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-settings.php';
+require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-logger.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-google-sheets.php';
+require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-content-processor.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-importer.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-webhook.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-tenant-manager.php';
-require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-logger.php';
+require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-taxonomy-manager.php';
+require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-import-ajax.php';
 require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-cron.php';
+// Load Core last - it registers hooks and depends on other classes
+require_once WPGSIP_PLUGIN_DIR . 'includes/class-wpgsip-core.php';
 
 // Admin classes
 if (is_admin()) {
@@ -81,9 +86,10 @@ if (file_exists(WPGSIP_PLUGIN_DIR . 'vendor/autoload.php')) {
 } else {
     add_action('admin_notices', function () {
 ?>
-        <div class="notice notice-error">
-            <p><?php esc_html_e('WP Google Sheets Import Pro: Please run "composer install" in the plugin directory.', 'wp-gs-import-pro'); ?></p>
-        </div>
+<div class="notice notice-error">
+    <p><?php esc_html_e('WP Google Sheets Import Pro: Please run "composer install" in the plugin directory.', 'wp-gs-import-pro'); ?>
+    </p>
+</div>
 <?php
     });
 }

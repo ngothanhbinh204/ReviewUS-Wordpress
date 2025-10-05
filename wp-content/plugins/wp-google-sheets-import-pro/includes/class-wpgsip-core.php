@@ -81,6 +81,10 @@ class WPGSIP_Core
             add_action('wp_ajax_wpgsip_import_execute', array($this, 'ajax_import_execute'));
             add_action('wp_ajax_wpgsip_get_logs', array($this, 'ajax_get_logs'));
             add_action('wp_ajax_wpgsip_test_connection', array($this, 'ajax_test_connection'));
+            
+            // Enhanced import AJAX handlers
+            add_action('wp_ajax_wpgsip_import_preview_enhanced', array('WPGSIP_Import_Ajax', 'ajax_import_preview_enhanced'));
+            add_action('wp_ajax_wpgsip_import_selective', array('WPGSIP_Import_Ajax', 'ajax_import_selective'));
         }
     }
 
@@ -89,9 +93,28 @@ class WPGSIP_Core
      */
     private function define_public_hooks()
     {
+        // Enqueue frontend styles
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_frontend_styles'));
+        
         // Register cron schedules
         add_filter('cron_schedules', array($this, 'add_cron_schedules'));
         add_action('wpgsip_scheduled_import', array($this, 'run_scheduled_import'));
+    }
+
+    /**
+     * Enqueue frontend styles
+     */
+    public function enqueue_frontend_styles()
+    {
+        // Only load on single posts that were imported
+        if (is_single() && get_post_meta(get_the_ID(), 'imported_from_gs', true)) {
+            wp_enqueue_style(
+                'wpgsip-frontend',
+                WPGSIP_PLUGIN_URL . 'assets/css/frontend.css',
+                array(),
+                WPGSIP_VERSION
+            );
+        }
     }
 
     /**

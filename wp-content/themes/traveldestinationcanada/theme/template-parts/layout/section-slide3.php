@@ -33,7 +33,8 @@ if (empty($sub_title) && empty($items)) {
                 </p>
                 <?php endif; ?>
                 <?php if (!empty($sub_title)): ?>
-                <h3 class="break-words text-[36px] font-bold leading-tight lg:text-[48px] 2xl:text-[52px] text-primary">
+                <h3
+                    class="break-words text-[36px] line-clamp-2 font-bold leading-tight lg:text-[48px] 2xl:text-[52px] text-primary">
                     <?php echo esc_html($sub_title); ?>
                 </h3>
                 <?php endif; ?>
@@ -108,7 +109,7 @@ if (empty($sub_title) && empty($items)) {
                         </div>
                         <div class="mt-5">
                             <h3
-                                class="break-words text-[22px] font-bold leading-tight lg:text-[24px] 2xl:text-[28px] mt-2">
+                                class="break-words line-clamp-2 text-[22px] font-bold leading-tight lg:text-[24px] 2xl:text-[28px] mt-2">
                                 <a class="primary2 transition-all duration-150 ease-linear"
                                     href="<?php echo esc_url($post_link); ?>">
                                     <?php echo esc_html($post_title); ?>

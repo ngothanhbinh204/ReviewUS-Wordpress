@@ -35,6 +35,11 @@ class WPGSIP_Importer
     private $webhook;
 
     /**
+     * Content Processor
+     */
+    private $content_processor;
+
+    /**
      * Constructor
      */
     public function __construct($tenant_id = 'default')
@@ -45,6 +50,7 @@ class WPGSIP_Importer
         $this->logger = new WPGSIP_Logger();
         $this->google_sheets = new WPGSIP_Google_Sheets($tenant_id);
         $this->webhook = new WPGSIP_Webhook($tenant_id);
+        $this->content_processor = new WPGSIP_Content_Processor();
     }
 
     /**
@@ -244,6 +250,14 @@ class WPGSIP_Importer
 
         return $should_skip;
     }
+    
+    /**
+     * Public wrapper for should_skip_row (used by import AJAX)
+     */
+    public function should_skip_row_public($row)
+    {
+        return $this->should_skip_row($row);
+    }
 
     /**
      * Find existing post
@@ -287,17 +301,50 @@ class WPGSIP_Importer
 
     /**
      * Create new post
+     * @param array $row Row data from sheet
+     * @param string $post_type Post type to create (post, thing_to_do, etc.)
      */
-    private function create_post($row)
+    private function create_post($row, $post_type = 'post')
     {
         $post_status = $this->settings['post_status'] ?? 'publish';
+        
+        // Check if content processing is enabled (default: true)
+        $enable_processing = isset($this->settings['enable_content_processing']) ? $this->settings['enable_content_processing'] : true;
+
+        $post_content = $row['content'];
+        $post_title = $row['meta_title'];
+        $post_excerpt = $row['meta_description'];
+        $processed_data = array(); // Initialize to avoid undefined variable error
+
+        if ($enable_processing) {
+            // Process content with Content Processor
+            $processed_data = $this->content_processor->process_for_seo($row['content']);
+
+            // Use processed title if available, fallback to meta_title
+            $post_title = !empty($processed_data['title']) ? $processed_data['title'] : $row['meta_title'];
+            
+            // Use processed meta description if available, fallback to row meta_description
+            $post_excerpt = !empty($processed_data['meta_description']) ? $processed_data['meta_description'] : $row['meta_description'];
+            
+            // Use processed content
+            $post_content = $processed_data['content'];
+            
+            // Add Table of Contents if enabled
+            if (!empty($this->settings['enable_toc'])) {
+                $toc_options = array(
+                    'min_headings' => $this->settings['toc_min_headings'] ?? 3,
+                    'title' => $this->settings['toc_title'] ?? 'Nội dung bài viết'
+                );
+                $post_content = $this->content_processor->add_table_of_contents($post_content, $toc_options);
+            }
+        }
 
         $post_data = array(
-            'post_title' => sanitize_text_field($row['meta_title']),
-            'post_content' => wp_kses_post($row['content']),
-            'post_excerpt' => sanitize_textarea_field($row['meta_description']),
+            'post_title' => sanitize_text_field($post_title),
+            'post_content' => wp_kses_post($post_content),
+            'post_excerpt' => sanitize_textarea_field($post_excerpt),
             'post_status' => $post_status,
-            'post_type' => 'post',
+            'post_type' => $post_type,  // Use parameter instead of hardcoded 'post'
             'post_author' => get_current_user_id() ?: 1,
         );
 
@@ -310,8 +357,8 @@ class WPGSIP_Importer
             throw new Exception($post_id->get_error_message());
         }
 
-        // Add metadata
-        $this->update_post_meta($post_id, $row);
+        // Add metadata (pass processed data for SEO fields)
+        $this->update_post_meta($post_id, $row, $processed_data);
 
         // Handle tags/keywords
         $this->handle_keywords($post_id, $row['keyword']);
@@ -324,14 +371,48 @@ class WPGSIP_Importer
 
     /**
      * Update existing post
+     * @param int $post_id Post ID to update
+     * @param array $row Row data from sheet
+     * @param string $post_type Post type (for consistency, not used in update)
      */
-    private function update_post($post_id, $row)
+    private function update_post($post_id, $row, $post_type = 'post')
     {
+        // Check if content processing is enabled (default: true)
+        $enable_processing = isset($this->settings['enable_content_processing']) ? $this->settings['enable_content_processing'] : true;
+
+        $post_content = $row['content'];
+        $post_title = $row['meta_title'];
+        $post_excerpt = $row['meta_description'];
+        $processed_data = array(); // Initialize to avoid undefined variable error
+
+        if ($enable_processing) {
+            // Process content with Content Processor
+            $processed_data = $this->content_processor->process_for_seo($row['content']);
+
+            // Use processed title if available, fallback to meta_title
+            $post_title = !empty($processed_data['title']) ? $processed_data['title'] : $row['meta_title'];
+            
+            // Use processed meta description if available, fallback to row meta_description
+            $post_excerpt = !empty($processed_data['meta_description']) ? $processed_data['meta_description'] : $row['meta_description'];
+            
+            // Use processed content
+            $post_content = $processed_data['content'];
+            
+            // Add Table of Contents if enabled
+            if (!empty($this->settings['enable_toc'])) {
+                $toc_options = array(
+                    'min_headings' => $this->settings['toc_min_headings'] ?? 3,
+                    'title' => $this->settings['toc_title'] ?? 'Nội dung bài viết'
+                );
+                $post_content = $this->content_processor->add_table_of_contents($post_content, $toc_options);
+            }
+        }
+
         $post_data = array(
             'ID' => $post_id,
-            'post_title' => sanitize_text_field($row['meta_title']),
-            'post_content' => wp_kses_post($row['content']),
-            'post_excerpt' => sanitize_textarea_field($row['meta_description']),
+            'post_title' => sanitize_text_field($post_title),
+            'post_content' => wp_kses_post($post_content),
+            'post_excerpt' => sanitize_textarea_field($post_excerpt),
         );
 
         // Custom hook before updating post
@@ -343,8 +424,8 @@ class WPGSIP_Importer
             throw new Exception($result->get_error_message());
         }
 
-        // Update metadata
-        $this->update_post_meta($post_id, $row);
+        // Update metadata (pass processed data for SEO fields)
+        $this->update_post_meta($post_id, $row, $processed_data);
 
         // Handle tags/keywords
         $this->handle_keywords($post_id, $row['keyword']);
@@ -358,7 +439,7 @@ class WPGSIP_Importer
     /**
      * Update post metadata
      */
-    private function update_post_meta($post_id, $row)
+    private function update_post_meta($post_id, $row, $processed_data = array())
     {
         // Mark as imported
         update_post_meta($post_id, 'imported_from_gs', true);
@@ -366,17 +447,21 @@ class WPGSIP_Importer
         update_post_meta($post_id, 'gs_tenant_id', $this->tenant_id);
         update_post_meta($post_id, 'gs_last_sync', current_time('mysql'));
 
+        // Determine SEO values (use processed if available, otherwise use row data)
+        $seo_title = !empty($processed_data['title']) ? $processed_data['title'] : $row['meta_title'];
+        $seo_description = !empty($processed_data['meta_description']) ? $processed_data['meta_description'] : $row['meta_description'];
+
         // Yoast SEO support
         if (defined('WPSEO_VERSION')) {
-            update_post_meta($post_id, '_yoast_wpseo_title', $row['meta_title']);
-            update_post_meta($post_id, '_yoast_wpseo_metadesc', $row['meta_description']);
+            update_post_meta($post_id, '_yoast_wpseo_title', $seo_title);
+            update_post_meta($post_id, '_yoast_wpseo_metadesc', $seo_description);
             update_post_meta($post_id, '_yoast_wpseo_focuskw', $row['keyword']);
         }
 
         // Rank Math SEO support
         if (defined('RANK_MATH_VERSION')) {
-            update_post_meta($post_id, 'rank_math_title', $row['meta_title']);
-            update_post_meta($post_id, 'rank_math_description', $row['meta_description']);
+            update_post_meta($post_id, 'rank_math_title', $seo_title);
+            update_post_meta($post_id, 'rank_math_description', $seo_description);
             update_post_meta($post_id, 'rank_math_focus_keyword', $row['keyword']);
         }
 

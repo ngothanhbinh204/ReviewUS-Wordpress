@@ -127,6 +127,17 @@ class WPGSIP_Admin
                 'confirmDelete' => __('Are you sure you want to delete this?', 'wp-gs-import-pro'),
             ),
         ));
+        
+        // Enqueue enhanced import script on import page
+        if (isset($_GET['page']) && $_GET['page'] === 'wpgsip-import') {
+            wp_enqueue_script(
+                'wpgsip-import',
+                WPGSIP_PLUGIN_URL . 'assets/js/import.js',
+                array('jquery', 'wpgsip-admin'),
+                WPGSIP_VERSION,
+                true
+            );
+        }
     }
 
     /**

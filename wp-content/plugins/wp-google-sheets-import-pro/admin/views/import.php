@@ -34,12 +34,31 @@ $tenant_settings = $settings->get_tenant_settings($current_tenant_id);
                 <h2><?php esc_html_e('Import Configuration', 'wp-gs-import-pro'); ?></h2>
                 <table class="form-table">
                     <tr>
+                        <th><?php esc_html_e('Import For', 'wp-gs-import-pro'); ?></th>
+                        <td>
+                            <select id="wpgsip-post-type" class="regular-text">
+                                <option value="post"><?php esc_html_e('Post', 'wp-gs-import-pro'); ?></option>
+                                <option value="thing_to_do"><?php esc_html_e('Thing To Do', 'wp-gs-import-pro'); ?></option>
+                            </select>
+                            <p class="description">
+                                <?php esc_html_e('Select the post type for import', 'wp-gs-import-pro'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><?php esc_html_e('Google Sheet ID', 'wp-gs-import-pro'); ?></th>
                         <td><code><?php echo esc_html($tenant_settings['sheet_id']); ?></code></td>
                     </tr>
                     <tr>
                         <th><?php esc_html_e('Sheet Range', 'wp-gs-import-pro'); ?></th>
-                        <td><code><?php echo esc_html($tenant_settings['sheet_range']); ?></code></td>
+                        <td>
+                            <code id="wpgsip-current-sheet-range"><?php echo esc_html($tenant_settings['sheet_range']); ?></code>
+                            <input type="hidden" id="wpgsip-post-sheet-range" value="<?php echo esc_attr($tenant_settings['sheet_range'] ?? 'Post1!A2:I'); ?>">
+                            <input type="hidden" id="wpgsip-thing-sheet-range" value="<?php echo esc_attr($tenant_settings['thing_to_do_sheet_range'] ?? 'ThingToDo1!A2:I'); ?>">
+                            <p class="description" id="wpgsip-sheet-columns-desc">
+                                <?php esc_html_e('Columns: A=outline, B=meta_title, C=meta_description, D=keyword, E=status, F=content, G=CPT, H=category, I=tags', 'wp-gs-import-pro'); ?>
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <th><?php esc_html_e('n8n Webhook', 'wp-gs-import-pro'); ?></th>
@@ -56,6 +75,12 @@ $tenant_settings = $settings->get_tenant_settings($current_tenant_id);
                         </td>
                     </tr>
                 </table>
+            </div>
+            
+            <!-- Taxonomy Selection (shown after preview) -->
+            <div class="wpgsip-section" id="wpgsip-taxonomy-section" style="display: none;">
+                <h2><?php esc_html_e('Taxonomy Settings', 'wp-gs-import-pro'); ?></h2>
+                <div id="wpgsip-taxonomy-options"></div>
             </div>
 
             <!-- Preview Section -->
@@ -80,11 +105,21 @@ $tenant_settings = $settings->get_tenant_settings($current_tenant_id);
             <!-- Import Section -->
             <div class="wpgsip-section">
                 <h2><?php esc_html_e('Start Import', 'wp-gs-import-pro'); ?></h2>
-                <p><?php esc_html_e('This will import all rows from the Google Sheet. Existing posts will be updated, new posts will be created.', 'wp-gs-import-pro'); ?></p>
+                <p><?php esc_html_e('Select specific items to import or update. Existing posts will be updated based on title match.', 'wp-gs-import-pro'); ?></p>
 
                 <p>
-                    <button type="button" id="wpgsip-import-btn" class="button button-primary button-large">
-                        <?php esc_html_e('Start Import', 'wp-gs-import-pro'); ?>
+                    <label>
+                        <input type="checkbox" id="wpgsip-select-all">
+                        <?php esc_html_e('Select All', 'wp-gs-import-pro'); ?>
+                    </label>
+                    &nbsp;&nbsp;
+                    <span id="wpgsip-selected-count" style="font-weight: bold;">0</span> 
+                    <?php esc_html_e('items selected', 'wp-gs-import-pro'); ?>
+                </p>
+
+                <p>
+                    <button type="button" id="wpgsip-import-btn" class="button button-primary button-large" disabled>
+                        <?php esc_html_e('Import Selected Items', 'wp-gs-import-pro'); ?>
                     </button>
                 </p>
 
@@ -107,133 +142,12 @@ $tenant_settings = $settings->get_tenant_settings($current_tenant_id);
 </div>
 
 <script>
-    jQuery(document).ready(function($) {
-        var tenantId = '<?php echo esc_js($current_tenant_id); ?>';
-
-        // Preview button
-        $('#wpgsip-preview-btn').on('click', function() {
-            $('#wpgsip-preview-container').show();
-            $('#wpgsip-preview-loading').show();
-            $('#wpgsip-preview-data').html('');
-
-            $.ajax({
-                url: wpgsipAdmin.ajaxUrl,
-                type: 'POST',
-                data: {
-                    action: 'wpgsip_import_preview',
-                    nonce: wpgsipAdmin.nonce,
-                    tenant_id: tenantId
-                },
-                success: function(response) {
-                    $('#wpgsip-preview-loading').hide();
-
-                    if (response.success) {
-                        var html = '<p><strong>' + response.data.count + ' rows found</strong></p>';
-                        html += '<table class="wp-list-table widefat fixed striped">';
-                        html += '<thead><tr>';
-                        html += '<th>Row</th><th>Meta Title</th><th>Keyword</th><th>Status</th><th>Has Content</th>';
-                        html += '</tr></thead><tbody>';
-
-                        $.each(response.data.data.slice(0, 10), function(i, row) {
-                            html += '<tr>';
-                            html += '<td>' + row.row_id + '</td>';
-                            html += '<td>' + row.meta_title + '</td>';
-                            html += '<td>' + row.keyword + '</td>';
-                            html += '<td>' + row.status + '</td>';
-                            html += '<td>' + (row.content ? '✅' : '❌') + '</td>';
-                            html += '</tr>';
-                        });
-
-                        html += '</tbody></table>';
-
-                        if (response.data.count > 10) {
-                            html += '<p><em>Showing first 10 rows only...</em></p>';
-                        }
-
-                        $('#wpgsip-preview-data').html(html);
-                    } else {
-                        $('#wpgsip-preview-data').html('<div class="notice notice-error"><p>' + response.data.message + '</p></div>');
-                    }
-                },
-                error: function() {
-                    $('#wpgsip-preview-loading').hide();
-                    $('#wpgsip-preview-data').html('<div class="notice notice-error"><p>Failed to load preview</p></div>');
-                }
-            });
-        });
-
-        // Import button
-        $('#wpgsip-import-btn').on('click', function() {
-            if (!confirm('Are you sure you want to start the import?')) {
-                return;
-            }
-
-            $(this).prop('disabled', true);
-            $('#wpgsip-import-progress').show();
-            $('#wpgsip-import-results').hide();
-
-            runBatchImport(0);
-        });
-
-        function runBatchImport(batch) {
-            $.ajax({
-                url: wpgsipAdmin.ajaxUrl,
-                type: 'POST',
-                data: {
-                    action: 'wpgsip_import_execute',
-                    nonce: wpgsipAdmin.nonce,
-                    tenant_id: tenantId,
-                    batch: batch,
-                    batch_size: 10
-                },
-                success: function(response) {
-                    if (response.success) {
-                        var result = response.data;
-                        var progress = ((batch * 10 + result.processed) / result.total) * 100;
-
-                        $('.wpgsip-progress-fill').css('width', progress + '%');
-                        $('#wpgsip-import-status').text('Processing batch ' + (batch + 1) + '... (' + result.processed + '/' + result.total + ')');
-
-                        if (result.has_more) {
-                            runBatchImport(batch + 1);
-                        } else {
-                            showResults(result);
-                        }
-                    } else {
-                        $('#wpgsip-import-status').html('<div class="notice notice-error"><p>' + response.data.message + '</p></div>');
-                        $('#wpgsip-import-btn').prop('disabled', false);
-                    }
-                },
-                error: function() {
-                    $('#wpgsip-import-status').html('<div class="notice notice-error"><p>Import failed</p></div>');
-                    $('#wpgsip-import-btn').prop('disabled', false);
-                }
-            });
-        }
-
-        function showResults(result) {
-            $('#wpgsip-import-progress').hide();
-            $('#wpgsip-import-results').show();
-            $('#wpgsip-import-btn').prop('disabled', false);
-
-            var html = '<p><strong>Import completed!</strong></p>';
-            html += '<ul>';
-            html += '<li>Created: ' + result.created + '</li>';
-            html += '<li>Updated: ' + result.updated + '</li>';
-            html += '<li>Skipped: ' + result.skipped + '</li>';
-            html += '<li>Errors: ' + result.errors + '</li>';
-            html += '</ul>';
-
-            $('#wpgsip-import-summary').html(html);
-
-            if (result.messages && result.messages.length > 0) {
-                var messagesHtml = '<h4>Messages:</h4><ul>';
-                $.each(result.messages, function(i, msg) {
-                    messagesHtml += '<li>' + msg + '</li>';
-                });
-                messagesHtml += '</ul>';
-                $('#wpgsip-import-messages').html(messagesHtml);
-            }
-        }
-    });
+    // Initialize import variables for external script
+    var wpgsipImport = wpgsipImport || {};
+    wpgsipImport.tenantId = '<?php echo esc_js($current_tenant_id); ?>';
+    wpgsipImport.i18n = {
+        noSelection: '<?php esc_html_e('Please select at least one item to import', 'wp-gs-import-pro'); ?>',
+        confirmImport: '<?php esc_html_e('Import %d selected items?', 'wp-gs-import-pro'); ?>',
+        taxonomyHelp: '<?php esc_html_e('Select default taxonomies for items that don\'t have them in the sheet:', 'wp-gs-import-pro'); ?>'
+    };
 </script>

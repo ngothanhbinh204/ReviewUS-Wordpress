@@ -68,11 +68,21 @@ class WPGSIP_Google_Sheets
 
     /**
      * Fetch data from Google Sheet
+     * @param bool $use_cache Whether to use cache
+     * @param string $post_type Post type (post or thing_to_do) to determine which sheet range to use
      */
-    public function fetch_data($use_cache = true)
+    public function fetch_data($use_cache = true, $post_type = 'post')
     {
         $sheet_id = $this->settings['sheet_id'] ?? '';
-        $sheet_range = $this->settings['sheet_range'] ?? 'Sheet1!A2:F';
+        
+        // Select sheet range based on post type
+        if ($post_type === 'thing_to_do') {
+            $sheet_range = $this->settings['thing_to_do_sheet_range'] ?? 'ThingToDo1!A2:I';
+        } else {
+            $sheet_range = $this->settings['sheet_range'] ?? 'Post1!A2:I';
+        }
+        
+        error_log('WPGSIP: Fetching data from Sheet ID ' . $sheet_id . ' Range ' . $sheet_range);
 
         if (empty($sheet_id)) {
             throw new Exception(__('Sheet ID is not configured', 'wp-gs-import-pro'));
@@ -96,18 +106,57 @@ class WPGSIP_Google_Sheets
                 return array();
             }
 
-            // Parse data into structured format
+            // Map columns from Google Sheet - DYNAMIC based on post_type
+            if ($post_type === 'thing_to_do') {
+                // Thing To Do structure: outline, meta_title, meta_description, keyword, STATUS, Content, province, themes, seasons
+                $column_mapping = array(
+                    0 => 'outline',          // Column A (outline)
+                    1 => 'meta_title',       // Column B (meta_title)
+                    2 => 'meta_description', // Column C (meta_description)
+                    3 => 'keyword',          // Column D (keyword)
+                    4 => 'status',           // Column E (STATUS)
+                    5 => 'content',          // Column F (Content)
+                    6 => 'province',         // Column G (province - Provinces & Territories taxonomy)
+                    7 => 'themes',           // Column H (themes - Thing Themes taxonomy)
+                    8 => 'seasons',          // Column I (seasons - Seasons taxonomy)
+                );
+            } else {
+                // Blog Post structure: outline, meta_title, meta_description, keyword, STATUS, Content, CPT, category, tags
+                $column_mapping = array(
+                    0 => 'outline',          // Column A (outline)
+                    1 => 'meta_title',       // Column B (meta_title)
+                    2 => 'meta_description', // Column C (meta_description)
+                    3 => 'keyword',          // Column D (keyword)
+                    4 => 'status',           // Column E (STATUS)
+                    5 => 'content',          // Column F (Content)
+                    6 => 'CPT',              // Column G (CPT - Custom Post Type)
+                    7 => 'category',         // Column H (category)
+                    8 => 'tags',             // Column I (tags)
+                );
+            }
+
+            // Parse data into structured format - DYNAMIC approach
             $data = array();
             foreach ($values as $index => $row) {
-                $data[] = array(
+                $row_data = array(
                     'row_id' => $index + 2, // +2 because we start from A2
-                    'outline' => $row[0] ?? '',
-                    'meta_title' => $row[1] ?? '',
-                    'meta_description' => $row[2] ?? '',
-                    'keyword' => $row[3] ?? '',
-                    'status' => $row[4] ?? '',
-                    'content' => $row[5] ?? '',
                 );
+                
+                // Map all available columns dynamically
+                foreach ($row as $col_index => $col_value) {
+                    $col_name = $column_mapping[$col_index] ?? 'column_' . $col_index;
+                    $row_data[$col_name] = $col_value ?? '';
+                }
+                
+                // Ensure required fields exist even if empty
+                $required_fields = array('outline', 'meta_title', 'meta_description', 'keyword', 'status', 'content', 'CPT', 'category', 'tags');
+                foreach ($required_fields as $field) {
+                    if (!isset($row_data[$field])) {
+                        $row_data[$field] = '';
+                    }
+                }
+                
+                $data[] = $row_data;
             }
 
             // Cache for configured duration
@@ -129,7 +178,7 @@ class WPGSIP_Google_Sheets
             $sheet_id = $this->settings['sheet_id'] ?? '';
         }
         if ($sheet_range === null) {
-            $sheet_range = $this->settings['sheet_range'] ?? 'Sheet1!A2:F';
+            $sheet_range = $this->settings['sheet_range'] ?? 'Post1!A2:I';
         }
 
         if (empty($sheet_id)) {
@@ -157,7 +206,7 @@ class WPGSIP_Google_Sheets
     public function refresh_data()
     {
         $sheet_id = $this->settings['sheet_id'] ?? '';
-        $sheet_range = $this->settings['sheet_range'] ?? 'Sheet1!A2:F';
+        $sheet_range = $this->settings['sheet_range'] ?? 'Post1!A2:I';
         $cache_key = 'wpgsip_data_' . md5($this->tenant_id . $sheet_id . $sheet_range);
         delete_transient($cache_key);
         return $this->fetch_data(false);

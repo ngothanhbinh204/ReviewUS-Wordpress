@@ -144,6 +144,76 @@ add_action('wpgsip_after_create_post', function($post_id, $row, $tenant_id) {
 }, 10, 3);
 ```
 
+### Xử Lý Nội Dung Tự Động (Content Processing)
+
+Plugin tự động xử lý và format nội dung từ Google Sheets thành HTML chuẩn SEO:
+
+**Tính năng:**
+- ✅ Tự động convert H1:, H2:, H3: thành heading tags
+- ✅ Format **bold**, *italic*, lists (-, *, 1., 2.)
+- ✅ Loại bỏ nội dung trong dấu ngoặc vuông [...]
+- ✅ Tự động thêm Table of Contents (TOC)
+- ✅ Extract Meta Description từ content
+
+**Ví dụ:**
+
+Input trong Google Sheets (cột F - Content):
+```
+Meta description: Mô tả SEO của bài viết
+
+H1: [Cập nhật 2025] Tiêu đề bài viết
+
+Đoạn văn giới thiệu với **từ khóa quan trọng**.
+
+H2: Phần 1
+
+- Điểm thứ nhất
+- Điểm thứ hai
+
+H2: Phần 2
+
+1. Bước 1
+2. Bước 2
+```
+
+Output HTML:
+```html
+<h1>Tiêu đề bài viết</h1>
+
+<div class="wpgsip-toc">
+    <h2>Nội dung bài viết</h2>
+    <ul>
+        <li><a href="#heading-1">Phần 1</a></li>
+        <li><a href="#heading-2">Phần 2</a></li>
+    </ul>
+</div>
+
+<p>Đoạn văn giới thiệu với <strong>từ khóa quan trọng</strong>.</p>
+
+<h2 id="heading-1">Phần 1</h2>
+<ul>
+    <li>Điểm thứ nhất</li>
+    <li>Điểm thứ hai</li>
+</ul>
+
+<h2 id="heading-2">Phần 2</h2>
+<ol>
+    <li>Bước 1</li>
+    <li>Bước 2</li>
+</ol>
+```
+
+**Cấu hình:**
+
+Vào **GS Import Pro → Settings → Content Processing Options**:
+
+1. **Enable Content Processing**: Bật/tắt tự động format
+2. **Enable Table of Contents**: Tự động thêm mục lục
+3. **TOC Minimum Headings**: Số heading tối thiểu (mặc định: 3)
+4. **TOC Title**: Tiêu đề mục lục (mặc định: "Nội dung bài viết")
+
+**Chi tiết:** Xem file `CONTENT-PROCESSING.md` để biết đầy đủ quy tắc formatting và use cases.
+
 ### Tích Hợp SEO
 
 Plugin tự động tương thích với:

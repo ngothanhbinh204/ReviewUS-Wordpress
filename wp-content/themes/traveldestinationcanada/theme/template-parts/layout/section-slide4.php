@@ -33,7 +33,7 @@ if (empty($sub_title) && empty($posts)) {
             </div>
 
             <?php if ($link && $link !== false && $link !== '#'): ?>
-            <a class="inline-block cursor-pointer rounded-sm px-5 py-3 transition-colors text-primary button_has_icon group pl-0 pr-5 text-lg font-semibold text-left gtm-cta gtm-readmore md:!py-1 lg:!py-2 gtm-cta"
+            <a class="inline-block cursor-pointer rounded-sm px-5 py-3 line-clamp-2 transition-colors text-primary button_has_icon group pl-0 pr-5 text-lg font-semibold text-left gtm-cta gtm-readmore md:!py-1 lg:!py-2 gtm-cta"
                 href="<?php echo esc_url($link); ?>"
                 <?php echo $link_target ? 'target="' . esc_attr($link_target) . '"' : ''; ?>>
                 <span class="flex items-center gap-3">
@@ -102,7 +102,7 @@ if (empty($sub_title) && empty($posts)) {
                         <div class="mt-5">
                             <h3
                                 class="break-words text-[22px] font-bold leading-tight lg:text-[24px] 2xl:text-[28px] mt-2">
-                                <a class="primary2 transition-all duration-150 ease-linear"
+                                <a class="primary2 line-clamp-2 transition-all duration-150 ease-linear"
                                     href="<?php echo esc_url($post_link); ?>">
                                     <?php echo esc_html($post_title); ?>
                                 </a>
